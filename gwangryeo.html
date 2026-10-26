@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 찾아가는 고교학점제 박람회 - 1:1 학업설계 컨설팅 사전 설문</title>
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-dark: #115e59;
+            --primary-light: #f0fdfa;
+            --primary-border: #99f6e4;
+            --blue: #1e40af;
+            --blue-light: #eff6ff;
+            --gray-900: #0f172a;
+            --gray-700: #334155;
+            --gray-500: #64748b;
+            --gray-200: #e2e8f0;
+            --gray-50: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            word-break: keep-all;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", "Apple SD Gothic Neo", sans-serif;
+            background: linear-gradient(135deg, #f0fdfa 0%, #eff6ff 100%);
+            color: var(--gray-900);
+            margin: 0;
+            padding: 20px 12px 48px;
+            line-height: 1.55;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0f766e 0%, #1e3a8a 100%);
+            color: #ffffff;
+            padding: 28px 24px 24px;
+            text-align: center;
+        }
+
+        .school-pill {
+            display: inline-block;
+            background: #fef08a;
+            color: #854d0e;
+            font-size: 13.5px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
+        .hero h1 {
+            margin: 0 0 8px 0;
+            font-size: 21px;
+            line-height: 1.35;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            margin: 0;
+            font-size: 13.5px;
+            color: #ccfbf1;
+        }
+
+        .visit-info-bar {
+            background: #134e4a;
+            color: #f0fdfa;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 16px;
+            text-align: center;
+            border-bottom: 1px solid #0f766e;
+        }
+
+        .content {
+            padding: 24px 22px 30px;
+        }
+
+        .welcome-box {
+            background-color: var(--primary-light);
+            border: 1.5px solid var(--primary-border);
+            border-radius: 12px;
+            padding: 15px 18px;
+            margin-bottom: 24px;
+            font-size: 13.5px;
+            color: #134e4a;
+        }
+
+        .welcome-box strong {
+            color: #0f766e;
+        }
+
+        .section-head {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin: 24px 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .q-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .help-note {
+            font-size: 12.5px;
+            color: var(--gray-500);
+            margin: -4px 0 10px 0;
+        }
+
+        .student-id-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.3fr;
+            gap: 10px;
+            background: var(--gray-50);
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .field-label {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--gray-700);
+            margin-bottom: 5px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: #ffffff;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+        }
+
+        .option-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 12px 14px;
+            cursor: pointer;
+            background: #ffffff;
+            transition: all 0.15s;
+            font-size: 13.8px;
+            color: var(--gray-700);
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .option-card input[type="radio"],
+        .option-card input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        textarea {
+            height: 90px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #0f766e 0%, #1e3a8a 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 24px;
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .done-box {
+            display: none;
+            background: #eff6ff;
+            border: 2px solid #93c5fd;
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .done-box h3 {
+            margin: 0 0 8px 0;
+            color: #1e3a8a;
+            font-size: 18px;
+        }
+
+        .done-summary {
+            text-align: left;
+            background: #ffffff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 14px;
+            font-size: 13.5px;
+            color: #1e293b;
+            white-space: pre-wrap;
+            margin-top: 12px;
+        }
+
+        /* URL 파라미터가 없을 때만 보이는 학교 선택 안내창 */
+        .school-fallback-box {
+            display: none;
+            background: #fffbeb;
+            border: 1.5px solid #fde68a;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 500px) {
+            .student-id-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .student-name-wrap {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <span id="schoolBadge" class="school-pill">🏫 3학년 전용 사전 설문</span>
+        <h1>찾아가는 고교학점제 1:1 컨설팅<br>참가 신청 및 사전 진로 설문</h1>
+        <p>마산내서여자고등학교 선생님이 여러분의 학교로 직접 찾아갑니다!</p>
+    </div>
+    <div id="visitInfoBar" class="visit-info-bar">
+        📅 운영 시간 : 오후 5~7교시 (13:30 ~ 16:30)
+    </div>
+
+    <div class="content">
+        <div class="welcome-box">
+            👋 <strong>중3 여러분, 반갑습니다!</strong><br>
+            "고등학교에 가면 어떤 과목을 선택해야 할까?", "고교학점제는 중학교와 무엇이 다를까?"<br>
+            여러분의 관심 진로와 궁금한 점을 작성해 주시면, 마산내서여고 선생님께서 <strong>맞춤형 고교학점제 가이드북</strong>과 함께 <strong>1:1 과목 설계 코칭</strong>을 진행해 드립니다. (참가자 전원 기념품 증정 🎁)
+        </div>
+
+        <form id="studentSurveyForm" onsubmit="handleStudentSubmit(event)">
+
+            <div class="section-head"><span class="q-badge">1</span> 반 / 번호 / 이름 입력 <span class="required">*</span></div>
+            <div class="help-note">· 학교와 학년(3학년)은 자동으로 입력됩니다. 본인의 반과 번호를 선택해 주세요.</div>
+            <div class="student-id-grid">
+                <div>
+                    <label class="field-label">3학년 반 <span class="required">*</span></label>
+                    <select id="studentClass" required>
+                        <option value="">반 선택</option>
+                        <option value="1">1반</option>
+                        <option value="2">2반</option>
+                        <option value="3">3반</option>
+                        <option value="4">4반</option>
+                        <option value="5">5반</option>
+                        <option value="6">6반</option>
+                        <option value="7">7반</option>
+                        <option value="8">8반</option>
+                        <option value="9">9반</option>
+                        <option value="10">10반</option>
+                        <option value="11">11반</option>
+                        <option value="12">12반</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label">번호 <span class="required">*</span></label>
+                    <select id="studentNo" required>
+                        <option value="">번호 선택</option>
+                    </select>
+                </div>
+                <div class="student-name-wrap">
+                    <label class="field-label">이름 <span class="required">*</span></label>
+                    <input type="text" id="studentName" placeholder="예: 김내서" required>
+                </div>
+            </div>
+
+            <div class="section-head"><span class="q-badge">2</span> 현재 가장 관심 있는 진로 계열은? <span class="required">*</span></div>
+            <div class="help-note">· 선생님께서 해당 계열에 맞춰 선택과목 안내 자료를 준비하십니다. (1개 선택)</div>
+            <div class="option-list">
+                <label class="option-card">
+                    <input type="radio" name="careerTrack" value="① 인문·어문·사회과학 계열" required>
+                    <span><strong>① 인문·어문·사회과학 계열</strong> (어문, 법학, 행정, 미디어, 심리, 언론 등)</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="careerTrack" value="② 경영·경제·상경 계열">
+                    <span><strong>② 경영·경제·상경 계열</strong> (경영, 경제, 금융, 무역, 마케팅 등)</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="careerTrack" value="③ 자연과학·공학·IT 계열">
+                    <span><strong>③ 자연과학·공학·IT 계열</strong> (컴퓨터, AI, 기계, 신소재, 화학, 반도체 등)</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="careerTrack" value="④ 의약학·보건·생명 계열">
+                    <span><strong>④ 의약학·보건·생명 계열</strong> (의학, 약학, 간호, 생명과학, 바이오, 보건 등)</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="careerTrack" value="⑤ 교육·사범 계열">
+                    <span><strong>⑤ 교육·사범 계열</strong> (초등교사, 중등교사, 유아·특수교육 등)</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="careerTrack" value="⑥ 예술·체육 계열">
+                    <span><strong>⑥ 예술·체육 계열</strong> (미술, 디자인, 영상, 음악, 체육 등)</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="careerTrack" value="⑦ 미정 (관심 분야 탐색 중)">
+                    <span><strong>⑦ 아직 정하지 못함</strong> (미정 / 관심 분야 탐색 중)</span>
+                </label>
+            </div>
+
+            <div class="section-head"><span class="q-badge">3</span> 희망하는 직업이나 관심 학과가 있다면? <span class="required">*</span></div>
+            <div class="help-note">· 아직 정하지 못했다면 '미정' 또는 좋아하는 과목/분야를 편하게 적어주세요.</div>
+            <input type="text" id="jobDept" placeholder="예: 간호사/간호학과, 컴퓨터공학과, 초등교사, 미정 등" required>
+
+            <div class="section-head"><span class="q-badge">4</span> 고등학교 진학 관련 가장 궁금한 점은? <span class="required">*</span></div>
+            <div class="help-note">· 가장 궁금하거나 걱정되는 항목을 <strong>최대 2개까지</strong> 선택해 주세요.</div>
+            <div class="option-list">
+                <label class="option-card">
+                    <input type="checkbox" name="worryItem" value="① 고교학점제 개념 및 중학교와의 차이" onchange="limitCheckbox(this)">
+                    <span>① 고교학점제란 무엇이고 중학교 수업과 어떻게 다른지</span>
+                </label>
+                <label class="option-card">
+                    <input type="checkbox" name="worryItem" value="② 내 진로에 맞는 고등학교 선택과목 설계 방법" onchange="limitCheckbox(this)">
+                    <span>② 내 진로에 맞는 고등학교 선택과목을 어떻게 골라야 하는지</span>
+                </label>
+                <label class="option-card">
+                    <input type="checkbox" name="worryItem" value="③ 고등학교 내신 산출 방식(5등급제)과 평가 방법" onchange="limitCheckbox(this)">
+                    <span>③ 고등학교 내신 산출 방식(5등급제)과 과목별 평가 방법</span>
+                </label>
+                <label class="option-card">
+                    <input type="checkbox" name="worryItem" value="④ 2028 대입(수능·학생부)과 선택과목의 영향" onchange="limitCheckbox(this)">
+                    <span>④ 2028 대입(수능 및 학생부)과 선택과목 이수의 영향</span>
+                </label>
+                <label class="option-card">
+                    <input type="checkbox" name="worryItem" value="⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령" onchange="limitCheckbox(this)">
+                    <span>⑤ 고등학교 진학 후 학업량, 동아리 및 학교생활 적응 요령</span>
+                </label>
+            </div>
+
+            <div class="section-head"><span class="q-badge">5</span> 고등학교 선생님께 꼭 물어보고 싶은 질문 (선택)</div>
+            <div class="help-note">· 구체적으로 적어줄수록 선생님께서 여러분에게 꼭 맞는 1:1 답변을 준비해 오십니다!</div>
+            <textarea id="freeQuestion" placeholder="예: 간호학과에 가려면 물리나 화학을 꼭 들어야 하나요? 마산내서여고에는 어떤 특색 과목이나 동아리가 있나요? 등"></textarea>
+
+            <button type="submit" id="btnSubmit" class="btn-submit">✨ 컨설팅 사전 설문 제출하기</button>
+        </form>
+
+        <div id="doneBox" class="done-box">
+            <h3>🎉 사전 설문 및 참가 신청이 완료되었습니다!</h3>
+            <p style="margin: 0; font-size: 13.5px; color: #1e40af;">
+                작성해 준 내용을 바탕으로 마산내서여고 선생님께서 맞춤형 상담 자료를 준비하여 찾아갈게요!
+            </p>
+            <div id="doneSummary" class="done-summary"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxGTg4cGIFDlTZROwsQV9UIKiDpToGqCowiPB7WKnANaetAmfXS-ZpXuBmwC1d0jvm-/exec";
+
+const SCHOOL_DATA = {
+    "hogye": { name: "호계중", fullName: "호계중학교", dateStr: "2026. 11. 23.(월) 5~7교시 (13:30 ~ 16:30)" },
+    "호계중": { name: "호계중", fullName: "호계중학교", dateStr: "2026. 11. 23.(월) 5~7교시 (13:30 ~ 16:30)" },
+    "1": { name: "호계중", fullName: "호계중학교", dateStr: "2026. 11. 23.(월) 5~7교시 (13:30 ~ 16:30)" },
+
+    "naeseo": { name: "내서중", fullName: "내서중학교", dateStr: "2026. 11. 24.(화) 5~7교시 (13:30 ~ 16:30)" },
+    "내서중": { name: "내서중", fullName: "내서중학교", dateStr: "2026. 11. 24.(화) 5~7교시 (13:30 ~ 16:30)" },
+    "2": { name: "내서중", fullName: "내서중학교", dateStr: "2026. 11. 24.(화) 5~7교시 (13:30 ~ 16:30)" },
+
+    "gwangryeo": { name: "광려중", fullName: "광려중학교", dateStr: "2026. 11. 26.(목) 5~7교시 (13:30 ~ 16:30)" },
+    "광려중": { name: "광려중", fullName: "광려중학교", dateStr: "2026. 11. 26.(목) 5~7교시 (13:30 ~ 16:30)" },
+    "3": { name: "광려중", fullName: "광려중학교", dateStr: "2026. 11. 26.(목) 5~7교시 (13:30 ~ 16:30)" },
+
+    "samgye": { name: "삼계중", fullName: "삼계중학교", dateStr: "2026. 12. 3.(목) 5~7교시 (13:30 ~ 16:30)" },
+    "삼계중": { name: "삼계중", fullName: "삼계중학교", dateStr: "2026. 12. 3.(목) 5~7교시 (13:30 ~ 16:30)" },
+    "4": { name: "삼계중", fullName: "삼계중학교", dateStr: "2026. 12. 3.(목) 5~7교시 (13:30 ~ 16:30)" }
+};
+
+let currentSchool = "";
+
+// 번호 드롭다운 (1~35번) 생성
+const noSelect = document.getElementById('studentNo');
+for (let i = 1; i <= 35; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i + '번';
+    noSelect.appendChild(opt);
+}
+
+function applySchoolInfo(key) {
+    const info = SCHOOL_DATA[key];
+    if (info) {
+        currentSchool = info.name;
+        document.getElementById('schoolBadge').textContent = `🏫 ${info.fullName} 3학년 전용 신청서`;
+        document.getElementById('visitInfoBar').textContent = `📅 ${info.fullName} 방문 일시 : ${info.dateStr}`;
+        document.title = `[${info.fullName}] 찾아가는 고교학점제 1:1 컨설팅 사전설문`;
+    }
+}
+
+// URL 파라미터 (?s=hogye 등) 확인 (기본값: 호계중)
+(function initSchoolFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const sKey = (params.get('s') || params.get('school') || 'gwangryeo').trim().toLowerCase();
+    applySchoolInfo(SCHOOL_DATA[sKey] ? sKey : 'gwangryeo');
+})();
+
+function limitCheckbox(cb) {
+    const checked = document.querySelectorAll('input[name="worryItem"]:checked');
+    if (checked.length > 2) {
+        cb.checked = false;
+        alert('가장 궁금한 점은 최대 2개까지만 선택할 수 있습니다!');
+    }
+}
+
+function cleanQuote(str) {
+    return (str || '').replace(/"/g, "'").replace(/\r?\n/g, " ").trim();
+}
+
+async function handleStudentSubmit(e) {
+    e.preventDefault();
+
+    if (!currentSchool) {
+        alert('소속 중학교를 선택해 주세요!');
+        return;
+    }
+
+    const sClass = Number(document.getElementById('studentClass').value);
+    const sNo = Number(document.getElementById('studentNo').value);
+    const sName = cleanQuote(document.getElementById('studentName').value);
+    const trackEl = document.querySelector('input[name="careerTrack"]:checked');
+    const track = trackEl ? cleanQuote(trackEl.value) : '';
+    const jobDept = cleanQuote(document.getElementById('jobDept').value);
+
+    const checkedWorries = Array.from(document.querySelectorAll('input[name="worryItem"]:checked')).map(c => c.value);
+    if (checkedWorries.length === 0) {
+        alert('4번 문항(가장 궁금한 점)을 최소 1개 이상 선택해 주세요!');
+        return;
+    }
+    const worries = cleanQuote(checkedWorries.join(', '));
+    const question = cleanQuote(document.getElementById('freeQuestion').value) || '-';
+
+    // 구글 시트 자동 열 분리 수식 (B:학교, C:3학년, D:반, E:번호, F:성명, G:계열, H:희망직업/학과, I:궁금한점, J:질문)
+    const payload = {
+        name: currentSchool,
+        subject: "3학년",
+        participation: sClass,
+        schools: sClass,
+        track: `={${sNo}, "${sName}", "${track}", "${jobDept}", "${worries}", "${question}"}`
+    };
+
+    const btn = document.getElementById('btnSubmit');
+    btn.disabled = true;
+    btn.textContent = '⏳ 설문 내용을 제출하는 중입니다...';
+
+    try {
+        await fetch(GAS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+        });
+    } catch (err) {
+        console.error(err);
+    }
+
+    document.getElementById('doneSummary').textContent =
+`[신청 확인 내역]
+· 소속 : ${currentSchool}학교 3학년 ${sClass}반 ${sNo}번 ${sName}
+· 관심 계열 : ${track}
+· 희망 진로/학과 : ${jobDept}
+· 궁금한 점 : ${worries}
+· 사전 질문 : ${question}`;
+
+    document.getElementById('studentSurveyForm').style.display = 'none';
+    document.getElementById('doneBox').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
