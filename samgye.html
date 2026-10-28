@@ -258,14 +258,47 @@
             margin-top: 12px;
         }
 
-        /* URL 파라미터가 없을 때만 보이는 학교 선택 안내창 */
-        .school-fallback-box {
+        .edit-banner {
             display: none;
-            background: #fffbeb;
-            border: 1.5px solid #fde68a;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 18px;
+            background: #eff6ff;
+            border: 1.5px solid #93c5fd;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            font-size: 13.5px;
+            color: #1e3a8a;
+        }
+
+        .edit-banner-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .btn-reset-saved {
+            background: #ffffff;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-edit-again {
+            margin-top: 14px;
+            background: #1e3a8a;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
         }
 
         @media (max-width: 500px) {
@@ -295,6 +328,16 @@
             👋 <strong>중3 여러분, 반갑습니다!</strong><br>
             "고등학교에 가면 어떤 과목을 선택해야 할까?", "고교학점제는 중학교와 무엇이 다를까?"<br>
             여러분의 관심 진로와 궁금한 점을 작성해 주시면, 마산내서여고 선생님께서 <strong>맞춤형 고교학점제 가이드북</strong>과 함께 <strong>1:1 과목 설계 코칭</strong>을 진행해 드립니다. (참가자 전원 기념품 증정 🎁)
+        </div>
+
+        <div id="editBanner" class="edit-banner">
+            <div class="edit-banner-top">
+                <strong>🔄 이전에 제출한 설문 내역을 불러왔습니다!</strong>
+                <button type="button" class="btn-reset-saved" onclick="clearSavedSubmission()">새로 작성하기(초기화)</button>
+            </div>
+            <div id="editBannerSub" style="font-size: 12.5px; color: #1e40af;">
+                수정할 항목을 변경한 뒤 맨 아래 <b>[🔄 설문 내용 수정 제출하기]</b> 버튼을 누르면 최신 내용으로 자동 반영됩니다.
+            </div>
         </div>
 
         <form id="studentSurveyForm" onsubmit="handleStudentSubmit(event)">
@@ -402,11 +445,12 @@
         </form>
 
         <div id="doneBox" class="done-box">
-            <h3>🎉 사전 설문 및 참가 신청이 완료되었습니다!</h3>
+            <h3 id="doneTitle">🎉 사전 설문 및 참가 신청이 완료되었습니다!</h3>
             <p style="margin: 0; font-size: 13.5px; color: #1e40af;">
                 작성해 준 내용을 바탕으로 마산내서여고 선생님께서 맞춤형 상담 자료를 준비하여 찾아갈게요!
             </p>
             <div id="doneSummary" class="done-summary"></div>
+            <button type="button" class="btn-edit-again" onclick="returnToEditForm()">✏️ 작성한 내용 다시 수정하기</button>
         </div>
     </div>
 </div>
@@ -433,6 +477,7 @@ const SCHOOL_DATA = {
 };
 
 let currentSchool = "";
+let isEditMode = false;
 
 // 번호 드롭다운 (1~35번) 생성
 const noSelect = document.getElementById('studentNo');
@@ -443,6 +488,56 @@ for (let i = 1; i <= 35; i++) {
     noSelect.appendChild(opt);
 }
 
+function getStorageKey() {
+    return `expo_2026_student_${currentSchool}`;
+}
+
+function loadSavedSubmission() {
+    try {
+        const raw = localStorage.getItem(getStorageKey());
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || !saved.sClass || !saved.sNo) return;
+
+        document.getElementById('studentClass').value = String(saved.sClass);
+        document.getElementById('studentNo').value = String(saved.sNo);
+        document.getElementById('studentName').value = saved.sName || '';
+        document.getElementById('jobDept').value = saved.jobDept || '';
+        document.getElementById('freeQuestion').value = (saved.question === '-' ? '' : (saved.question || ''));
+
+        const radios = document.querySelectorAll('input[name="careerTrack"]');
+        radios.forEach(r => { r.checked = (r.value === saved.track); });
+
+        const worrySet = new Set(saved.checkedWorries || []);
+        const cbs = document.querySelectorAll('input[name="worryItem"]');
+        cbs.forEach(cb => { cb.checked = worrySet.has(cb.value); });
+
+        isEditMode = true;
+        document.getElementById('editBanner').style.display = 'block';
+        document.getElementById('btnSubmit').textContent = '🔄 설문 내용 수정 제출하기';
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function clearSavedSubmission() {
+    if (!confirm('이전에 작성한 내용을 지우고 처음부터 새로 작성하시겠습니까?')) return;
+    try {
+        localStorage.removeItem(getStorageKey());
+    } catch (e) {}
+    isEditMode = false;
+    document.getElementById('studentSurveyForm').reset();
+    document.getElementById('editBanner').style.display = 'none';
+    document.getElementById('btnSubmit').textContent = '✨ 컨설팅 사전 설문 제출하기';
+}
+
+function returnToEditForm() {
+    document.getElementById('doneBox').style.display = 'none';
+    document.getElementById('studentSurveyForm').style.display = 'block';
+    loadSavedSubmission();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function applySchoolInfo(key) {
     const info = SCHOOL_DATA[key];
     if (info) {
@@ -450,6 +545,7 @@ function applySchoolInfo(key) {
         document.getElementById('schoolBadge').textContent = `🏫 ${info.fullName} 3학년 전용 신청서`;
         document.getElementById('visitInfoBar').textContent = `📅 ${info.fullName} 방문 일시 : ${info.dateStr}`;
         document.title = `[${info.fullName}] 찾아가는 고교학점제 1:1 컨설팅 사전설문`;
+        loadSavedSubmission();
     }
 }
 
@@ -519,6 +615,23 @@ async function handleStudentSubmit(e) {
         console.error(err);
     }
 
+    // 기기 브라우저(localStorage)에 제출 내용 저장 -> 재접속 시 수정 가능
+    try {
+        localStorage.setItem(getStorageKey(), JSON.stringify({
+            sClass,
+            sNo,
+            sName,
+            track,
+            jobDept,
+            checkedWorries,
+            question
+        }));
+    } catch (e) {}
+
+    document.getElementById('doneTitle').textContent = isEditMode
+        ? '✅ 설문 내용이 최신 내용으로 수정되었습니다!'
+        : '🎉 사전 설문 및 참가 신청이 완료되었습니다!';
+
     document.getElementById('doneSummary').textContent =
 `[신청 확인 내역]
 · 소속 : ${currentSchool}학교 3학년 ${sClass}반 ${sNo}번 ${sName}
@@ -527,7 +640,10 @@ async function handleStudentSubmit(e) {
 · 궁금한 점 : ${worries}
 · 사전 질문 : ${question}`;
 
+    btn.disabled = false;
+    btn.textContent = '🔄 설문 내용 수정 제출하기';
     document.getElementById('studentSurveyForm').style.display = 'none';
+    document.getElementById('editBanner').style.display = 'none';
     document.getElementById('doneBox').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
