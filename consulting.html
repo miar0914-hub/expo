@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 찾아가는 고교학점제 박람회 · 교사용 1:1 상담 카드</title>
+    <style>
+        :root {
+            --navy: #1e3a8a;
+            --navy-dark: #0f172a;
+            --blue: #2563eb;
+            --blue-light: #eff6ff;
+            --blue-border: #bfdbfe;
+            --teal: #0f766e;
+            --teal-light: #f0fdfa;
+            --amber: #d97706;
+            --amber-light: #fffbeb;
+            --green: #15803d;
+            --green-light: #f0fdf4;
+            --rose: #e11d48;
+            --gray-900: #0f172a;
+            --gray-800: #1e293b;
+            --gray-700: #334155;
+            --gray-600: #475569;
+            --gray-500: #64748b;
+            --gray-300: #cbd5e1;
+            --gray-200: #e2e8f0;
+            --gray-100: #f1f5f9;
+            --gray-50: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            word-break: keep-all;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Malgun Gothic", "맑은 고딕", sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.5;
+        }
+
+        /* ================= 메인 입장 화면 (성함 + 접속코드) ================= */
+        .login-screen {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0f766e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 430px;
+            border-radius: 22px;
+            padding: 36px 32px 32px;
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+        .login-badge {
+            display: inline-block;
+            background: var(--blue-light);
+            color: var(--navy);
+            font-size: 12.5px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 999px;
+            margin-bottom: 14px;
+        }
+        .login-card h1 {
+            margin: 0 0 8px 0;
+            font-size: 22px;
+            color: var(--gray-900);
+            letter-spacing: -0.5px;
+        }
+        .login-card p {
+            margin: 0 0 24px 0;
+            font-size: 13.8px;
+            color: var(--gray-600);
+            line-height: 1.55;
+        }
+        .field-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .field-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--gray-700);
+            margin-bottom: 6px;
+        }
+        .name-input {
+            width: 100%;
+            padding: 13px 16px;
+            font-size: 18px;
+            font-weight: 800;
+            text-align: center;
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            outline: none;
+            color: var(--gray-900);
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+        .name-input::placeholder {
+            font-weight: 500;
+            color: #94a3b8;
+            font-size: 15px;
+        }
+        .name-input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+        .code-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 10px;
+            text-align: center;
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.15s;
+        }
+        .code-input::placeholder {
+            letter-spacing: 6px;
+            color: #94a3b8;
+        }
+        .code-input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+        .login-remember {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+        .login-btn {
+            width: 100%;
+            margin-top: 18px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: var(--navy);
+            color: #ffffff;
+            font-size: 15.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .login-btn:hover {
+            background: var(--blue);
+        }
+        .login-error {
+            color: var(--rose);
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+
+        /* ================= 로그인 후 메인 앱 셸 ================= */
+        .app-shell {
+            display: none;
+        }
+
+        .top-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            color: #ffffff;
+            padding: 16px 20px 14px;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18);
+        }
+        .header-inner {
+            max-width: 1340px;
+            margin: 0 auto;
+        }
+        .header-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .brand-pill {
+            background: rgba(255, 255, 255, 0.16);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .brand-title h1 {
+            margin: 0;
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+        }
+        .sync-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .teacher-user-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fef08a;
+            color: #0f172a;
+            font-size: 13px;
+            font-weight: 900;
+            padding: 5px 12px;
+            border-radius: 999px;
+        }
+        .sync-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 11px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            color: #e2e8f0;
+        }
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+        }
+        .header-btn {
+            background: rgba(255, 255, 255, 0.14);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .header-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .school-tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .school-tab {
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.15s;
+        }
+        .school-tab:hover {
+            background: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+        }
+        .school-tab.active {
+            background: #ffffff;
+            color: var(--navy-dark);
+            border-color: #ffffff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+        .school-tab .cnt {
+            font-size: 11.5px;
+            padding: 1px 7px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.12);
+        }
+        .school-tab.active .cnt {
+            background: var(--blue-light);
+            color: var(--blue);
+        }
+
+        /* ================= 본문 영역 ================= */
+        .main-wrap {
+            max-width: 1340px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .summary-banner {
+            background: #ffffff;
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        }
+        .summary-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .summary-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .school-date-chip {
+            background: var(--blue-light);
+            color: var(--blue);
+            font-weight: 800;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 9px;
+        }
+        .room-highlight-chip {
+            background: var(--teal-light);
+            color: var(--teal);
+            border: 1.5px solid #99f6e4;
+            font-weight: 900;
+            font-size: 13.5px;
+            padding: 5px 12px;
+            border-radius: 9px;
+        }
+        .summary-title {
+            font-size: 18.5px;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+        .summary-meta {
+            font-size: 13.2px;
+            color: var(--gray-600);
+            margin-top: 2px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            border: 1px solid var(--gray-300);
+            background: #ffffff;
+            color: var(--gray-700);
+        }
+        .btn:hover {
+            background: var(--gray-50);
+        }
+
+        .progress-bar-row {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12.8px;
+            color: var(--gray-600);
+            font-weight: 700;
+        }
+        .progress-track {
+            flex: 1;
+            height: 9px;
+            background: var(--gray-200);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #10b981);
+            border-radius: 999px;
+            transition: width 0.25s;
+        }
+
+        /* 상담 카드 그리드 */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 16px;
+        }
+        @media (max-width: 500px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .consult-card {
+            background: #ffffff;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 18px 20px;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            transition: all 0.15s;
+        }
+        .consult-card.done {
+            background: #f8fafc;
+            border-color: #86efac;
+        }
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .student-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .slot-pill {
+            background: var(--navy);
+            color: #ffffff;
+            font-size: 12.5px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 7px;
+        }
+        .student-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+        .student-classno {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--gray-600);
+        }
+        .done-toggle {
+            border: 1.5px solid var(--gray-300);
+            background: #ffffff;
+            color: var(--gray-600);
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .done-toggle.checked {
+            background: var(--green-light);
+            border-color: #22c55e;
+            color: var(--green);
+        }
+
+        .track-badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        .track-t1 { background: #eff6ff; color: #1d4ed8; }
+        .track-t2 { background: #ecfeff; color: #0e7490; }
+        .track-t3 { background: #f0fdf4; color: #15803d; }
+        .track-t4 { background: #fdf2f8; color: #be185d; }
+        .track-t5 { background: #f5f3ff; color: #6d28d9; }
+        .track-t6 { background: #fff7ed; color: #c2410c; }
+        .track-t7 { background: #f1f5f9; color: #475569; }
+
+        .info-block {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 13.2px;
+        }
+        .info-row {
+            margin-bottom: 6px;
+        }
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+        .info-key {
+            font-weight: 800;
+            color: var(--gray-600);
+            margin-right: 6px;
+        }
+        .job-highlight {
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .question-box {
+            background: var(--amber-light);
+            border: 1.5px solid #fde68a;
+            border-radius: 10px;
+            padding: 11px 13px;
+            font-size: 13.5px;
+            color: #78350f;
+        }
+        .question-box.empty {
+            background: var(--gray-50);
+            border: 1px dashed var(--gray-300);
+            color: var(--gray-500);
+            padding: 8px 12px;
+            font-size: 12.5px;
+        }
+        .question-label {
+            display: block;
+            font-size: 11.8px;
+            font-weight: 800;
+            color: #b45309;
+            margin-bottom: 4px;
+        }
+
+        /* 서버 동기화 메모 영역 */
+        .memo-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: auto;
+        }
+        .memo-input {
+            width: 100%;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 12.8px;
+            font-family: inherit;
+            background: #ffffff;
+            color: var(--gray-800);
+            resize: vertical;
+            min-height: 44px;
+            transition: border-color 0.15s;
+        }
+        .memo-input:focus {
+            outline: none;
+            border-color: var(--blue);
+            background: #f8fafc;
+        }
+        .memo-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+        .memo-status {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--gray-500);
+        }
+        .memo-status.synced { color: var(--green); }
+        .memo-status.dirty { color: var(--amber); }
+        .memo-status.saving { color: var(--blue); }
+        .memo-status.error { color: var(--rose); }
+        .memo-save-btn {
+            border: 1px solid var(--blue-border);
+            background: var(--blue-light);
+            color: var(--blue);
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .memo-save-btn:hover {
+            background: #dbeafe;
+        }
+
+        .empty-school-box {
+            background: #ffffff;
+            border: 1px dashed var(--gray-300);
+            border-radius: 14px;
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--gray-500);
+            font-weight: 700;
+        }
+
+        .toast {
+            position: fixed;
+            top: 110px;
+            right: 20px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+            z-index: 1000;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+        @media print {
+            body { background: #ffffff !important; }
+            .login-screen, .top-header, .btn, .done-toggle, .memo-footer, .progress-bar-row {
+                display: none !important;
+            }
+            .app-shell { display: block !important; }
+            .main-wrap { padding: 0 !important; max-width: 100% !important; }
+            .summary-banner { box-shadow: none !important; border: 1.5px solid #334155 !important; margin-bottom: 12px !important; }
+            .consult-card { break-inside: avoid; box-shadow: none !important; border: 1px solid #94a3b8 !important; }
+            .cards-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 1. 메인 입장 화면: 선생님 본인 성함 + 접속 코드 입력 -->
+<section id="loginScreen" class="login-screen">
+    <div class="login-card">
+        <span class="login-badge">👩‍🏫 마산내서여자고등학교 컨설팅단 전용</span>
+        <h1>교사용 1:1 상담 카드 조회</h1>
+        <p>선생님 성함을 입력하시면<br><strong>선생님께 배정된 학생 상담 카드</strong>만 바로 열립니다.</p>
+        <form onsubmit="handleTeacherLogin(event)">
+            <div class="field-group">
+                <label class="field-label" for="teacherNameInput">선생님 성함</label>
+                <input type="text" id="teacherNameInput" class="name-input" placeholder="성함을 입력하세요 (예: 홍길동)" autocomplete="off" autofocus>
+            </div>
+            <label class="login-remember">
+                <input type="checkbox" id="rememberLogin" checked>
+                이 기기에서 내 성함 기억하기
+            </label>
+            <div id="loginError" class="login-error"></div>
+            <button type="submit" class="login-btn">내 상담 카드 열기</button>
+        </form>
+    </div>
+</section>
+
+<!-- 2. 로그인 후 개인 전용 상담 카드 화면 -->
+<div id="appShell" class="app-shell">
+    <header class="top-header">
+        <div class="header-inner">
+            <div class="header-top-row">
+                <div class="brand-title">
+                    <span class="brand-pill">마산내서여고 교육과정부</span>
+                    <h1 id="headerTitle">2026 찾아가는 고교학점제 · 1:1 상담 카드</h1>
+                </div>
+                <div class="sync-controls">
+                    <span id="teacherUserBadge" class="teacher-user-badge"></span>
+                    <span id="syncStatusBadge" class="sync-badge">
+                        <span class="sync-dot"></span>
+                        <span id="syncStatusText">구글 시트 동기화 중...</span>
+                    </span>
+                    <button type="button" class="header-btn" onclick="syncFromGoogleSheet(true)">🔄 새로고침</button>
+                    <button type="button" class="header-btn" onclick="handleLogout()">교사 변경</button>
+                </div>
+            </div>
+            <div id="schoolTabs" class="school-tabs"></div>
+        </div>
+    </header>
+
+    <main class="main-wrap">
+        <div class="summary-banner">
+            <div class="summary-top">
+                <div class="summary-left">
+                    <span id="bannerDate" class="school-date-chip"></span>
+                    <span id="bannerRoom" class="room-highlight-chip"></span>
+                    <div>
+                        <div id="bannerTitle" class="summary-title"></div>
+                        <div id="bannerMeta" class="summary-meta"></div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn" onclick="window.print()">🖨️ 내 상담 카드 인쇄(A4)</button>
+                </div>
+            </div>
+            <div class="progress-bar-row">
+                <span>내 상담 진행률</span>
+                <div class="progress-track"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
+                <span id="progressText">0 / 0명 완료</span>
+            </div>
+        </div>
+
+        <div id="cardsContainer"></div>
+    </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const SHEET_ID = "1cRQGyUKBixzujl5vy8dAsOYt4-xU6eZWi54wGtkj4Vk";
+const MATCH_GID = "101800155";
+const MEMO_SYNC_URL = "https://script.google.com/macros/s/AKfycbxGTg4cGIFDlTZROwsQV9UIKiDpToGqCowiPB7WKnANaetAmfXS-ZpXuBmwC1d0jvm-/exec";
+
+const SCHOOL_INFO = {
+    "호계중": { fullName: "호계중학교", date: "11. 23.(월)", time: "13:30 ~ 16:30", waitingRoom: "시청각실" },
+    "내서중": { fullName: "내서중학교", date: "11. 24.(화)", time: "13:30 ~ 16:30", waitingRoom: "정보실" },
+    "광려중": { fullName: "광려중학교", date: "11. 26.(목)", time: "13:30 ~ 16:30", waitingRoom: "다목적실" },
+    "삼계중": { fullName: "삼계중학교", date: "12. 3.(목)", time: "13:30 ~ 16:30", waitingRoom: "시청각실" }
+};
+
+const SCHOOL_ORDER = ["호계중", "내서중", "광려중", "삼계중"];
+
+const ROOM_MAP = {
+    "호계중": {
+        "진대현": "상담실 1",
+        "정헌석": "상담실 2",
+        "이주현": "상담실 3",
+        "조은영": "상담실 4",
+        "심예은": "상담실 5",
+        "팽윤정": "상담실 6",
+        "김향숙": "상담실 7",
+        "강은해": "상담실 8"
+    },
+    "내서중": {
+        "진대현": "상담실 1",
+        "이주현": "상담실 2",
+        "조은영": "상담실 3",
+        "강은해": "상담실 4"
+    },
+    "광려중": {
+        "진대현": "상담실 1",
+        "류연지": "상담실 2",
+        "정헌석": "상담실 3",
+        "김지원": "상담실 4",
+        "조은영": "상담실 5",
+        "심예은": "상담실 6",
+        "팽윤정": "상담실 7",
+        "김향숙": "상담실 8"
+    },
+    "삼계중": {
+        "진대현": "상담실 1",
+        "정헌석": "상담실 2",
+        "김지원": "상담실 3",
+        "이주현": "상담실 4",
+        "조은영": "상담실 5",
+        "심예은": "상담실 6",
+        "박호진": "상담실 7",
+        "강은해": "상담실 8"
+    }
+};
+const TEACHERS = [{"name": "진대현", "schools": {"호계중": true, "내서중": true, "광려중": true, "삼계중": true}}, {"name": "류연지", "schools": {"호계중": false, "내서중": false, "광려중": true, "삼계중": false}}, {"name": "정헌석", "schools": {"호계중": true, "내서중": false, "광려중": true, "삼계중": true}}, {"name": "김지원", "schools": {"호계중": false, "내서중": false, "광려중": true, "삼계중": true}}, {"name": "이주현", "schools": {"호계중": true, "내서중": true, "광려중": false, "삼계중": true}}, {"name": "조은영", "schools": {"호계중": true, "내서중": true, "광려중": true, "삼계중": true}}, {"name": "심예은", "schools": {"호계중": true, "내서중": false, "광려중": true, "삼계중": true}}, {"name": "팽윤정", "schools": {"호계중": true, "내서중": false, "광려중": true, "삼계중": false}}, {"name": "김향숙", "schools": {"호계중": true, "내서중": false, "광려중": true, "삼계중": false}}, {"name": "박호진", "schools": {"호계중": false, "내서중": false, "광려중": false, "삼계중": true}}, {"name": "강은해", "schools": {"호계중": true, "내서중": true, "광려중": false, "삼계중": true}}];
+const INITIAL_STUDENTS = [{"id": "호계중-1-12", "school": "호계중", "date": "11.23.(월)", "class": 1, "no": 12, "name": "박지원", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미전", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "마산내서여고 학생생활기록부 기재 방식은 어떻게되나요?", "teacher": "진대현", "slot": 1}, {"id": "호계중-6-6", "school": "호계중", "date": "11.23.(월)", "class": 6, "no": 6, "name": "김수빈", "track": "④ 의약학·보건·생명 계열", "job": "영상의학과, 약과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "농어촌 지원이 어떻게 반영되는지 궁금해요", "teacher": "진대현", "slot": 2}, {"id": "호계중-8-1", "school": "호계중", "date": "11.23.(월)", "class": 8, "no": 1, "name": "곽윤정", "track": "④ 의약학·보건·생명 계열", "job": "방사선학과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "고등학교가면 중학교공부량보(수행평가,시험등)다 2배는 훨씬많다고 들었는데 어떻게해야 높은등급이 나오나요? 고등학교가서 바쁘지않고 안정적인 성적이 나오려면 지금 할수있는 일은 뭐가 있나요? 모의고사성적을 보는 대학교가 많나요? 얼마나 열심히 해야 사람들이 인정해주는 대학에 갈수있나요? 선택과목에는 뭐가 있나요? 학년별로 차이점이 뭐가있나요?벌점이 대학갈때 중요한가요?", "teacher": "진대현", "slot": 3}, {"id": "호계중-8-11", "school": "호계중", "date": "11.23.(월)", "class": 8, "no": 11, "name": "변영서", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "고등학교 가서 정확한 진로를 정해도 괜찮을지 궁금합니다 일반 고등학교에서 다른 예술이나 기술 등을 해도 될지 궁금합니다", "teacher": "진대현", "slot": 4}, {"id": "호계중-10-13", "school": "호계중", "date": "11.23.(월)", "class": 10, "no": 13, "name": "손채유", "track": "④ 의약학·보건·생명 계열", "job": "생명과학과", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "내서여고에서 극상위권 대학을 가는 방법이 궁금하고, 수시로 간다고 해도 최저를 맞춰야 할 텐데 그 점에 관한 대비를 어떤 식으로 해주시는지 궁금합니다! 그리고 생기부 세특은 어떤 식으로 작성해주시는지 여쭤보고 싶습니다.", "teacher": "진대현", "slot": 5}, {"id": "호계중-1-3", "school": "호계중", "date": "11.23.(월)", "class": 1, "no": 3, "name": "권수민", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "정헌석", "slot": 1}, {"id": "호계중-1-19", "school": "호계중", "date": "11.23.(월)", "class": 1, "no": 19, "name": "이현주", "track": "④ 의약학·보건·생명 계열", "job": "의예과, 간호학과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "의예과나 간호학과를 가려면 어떤 과목을 듣는게 좋나요??", "teacher": "정헌석", "slot": 2}, {"id": "호계중-3-17", "school": "호계중", "date": "11.23.(월)", "class": 3, "no": 17, "name": "이예빈", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "아직 정해진 진로가 없는데 제가 원하는 진로를 잘 찾을 수 있는 방법이 있을까요ㅛ?", "teacher": "정헌석", "slot": 3}, {"id": "호계중-4-1", "school": "호계중", "date": "11.23.(월)", "class": 4, "no": 1, "name": "강규빈", "track": "⑥ 예술·체육 계열", "job": "메이크업아티스트/메이크업학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "메이크업과나 뷰티 관련 학과에 진학할 때 단순히 성적뿐만 아니라 학교생활기록부에서 어떤 역량이나 활동을 보여주는 것이 도움이 될까요?", "teacher": "정헌석", "slot": 4}, {"id": "호계중-1-21", "school": "호계중", "date": "11.23.(월)", "class": 1, "no": 21, "name": "임서현", "track": "⑤ 교육·사범 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "이주현", "slot": 1}, {"id": "호계중-2-16", "school": "호계중", "date": "11.23.(월)", "class": 2, "no": 16, "name": "송현아", "track": "⑥ 예술·체육 계열", "job": "헤어 디자이너", "worries": "① 고교학점제 개념 및 중학교와의 차이, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "이주현", "slot": 2}, {"id": "호계중-2-19", "school": "호계중", "date": "11.23.(월)", "class": 2, "no": 19, "name": "안서은", "track": "⑤ 교육·사범 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "내서여고가 궁금합니다", "teacher": "이주현", "slot": 3}, {"id": "호계중-3-28", "school": "호계중", "date": "11.23.(월)", "class": 3, "no": 28, "name": "최서현", "track": "③ 자연과학·공학·IT 계열", "job": "항공우주공학과", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "-", "teacher": "이주현", "slot": 4}, {"id": "호계중-1-6", "school": "호계중", "date": "11.23.(월)", "class": 1, "no": 6, "name": "김단아", "track": "⑥ 예술·체육 계열", "job": "제과제빵", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "조은영", "slot": 1}, {"id": "호계중-3-22", "school": "호계중", "date": "11.23.(월)", "class": 3, "no": 22, "name": "정지원", "track": "③ 자연과학·공학·IT 계열", "job": "화학공학과", "worries": "④ 2028 대입(수능·학생부)과 선택과목의 영향, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "조은영", "slot": 2}, {"id": "호계중-5-15", "school": "호계중", "date": "11.23.(월)", "class": 5, "no": 15, "name": "오정원", "track": "⑥ 예술·체육 계열", "job": "연극영화과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "조은영", "slot": 3}, {"id": "호계중-5-17", "school": "호계중", "date": "11.23.(월)", "class": 5, "no": 17, "name": "임세미", "track": "④ 의약학·보건·생명 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "조은영", "slot": 4}, {"id": "호계중-1-5", "school": "호계중", "date": "11.23.(월)", "class": 1, "no": 5, "name": "김나연", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "심예은", "slot": 1}, {"id": "호계중-3-1", "school": "호계중", "date": "11.23.(월)", "class": 3, "no": 1, "name": "강수희", "track": "⑥ 예술·체육 계열", "job": "실용음악과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "내서여고 시험은 어렵나요?? 실용음악과를 하고싶은데 내서여고는 사회계열의 수업이 있나요?? 내신은 따기 쉽나요??", "teacher": "심예은", "slot": 2}, {"id": "호계중-5-22", "school": "호계중", "date": "11.23.(월)", "class": 5, "no": 22, "name": "정은서", "track": "⑤ 교육·사범 계열", "job": "체육교사", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "체육교사를 할려면 어떤 선택과목을 선택해야 더 유리 한가요", "teacher": "심예은", "slot": 3}, {"id": "호계중-6-7", "school": "호계중", "date": "11.23.(월)", "class": 6, "no": 7, "name": "김아현", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "심예은", "slot": 4}, {"id": "호계중-1-18", "school": "호계중", "date": "11.23.(월)", "class": 1, "no": 18, "name": "이채원", "track": "① 인문·어문·사회과학 계열", "job": "영어영문학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "팽윤정", "slot": 1}, {"id": "호계중-1-26", "school": "호계중", "date": "11.23.(월)", "class": 1, "no": 26, "name": "천윤서", "track": "① 인문·어문·사회과학 계열", "job": "언어학과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "팽윤정", "slot": 2}, {"id": "호계중-6-14", "school": "호계중", "date": "11.23.(월)", "class": 6, "no": 14, "name": "박시연", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "팽윤정", "slot": 3}, {"id": "호계중-8-7", "school": "호계중", "date": "11.23.(월)", "class": 8, "no": 7, "name": "박나리", "track": "⑥ 예술·체육 계열", "job": "일러스트레이터", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "팽윤정", "slot": 4}, {"id": "호계중-2-4", "school": "호계중", "date": "11.23.(월)", "class": 2, "no": 4, "name": "김민서", "track": "① 인문·어문·사회과학 계열", "job": "교사", "worries": "① 고교학점제 개념 및 중학교와의 차이, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "김향숙", "slot": 1}, {"id": "호계중-6-10", "school": "호계중", "date": "11.23.(월)", "class": 6, "no": 10, "name": "김하정", "track": "⑤ 교육·사범 계열", "job": "국어교사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "동아리 랑 선택과목 구성", "teacher": "김향숙", "slot": 2}, {"id": "호계중-8-14", "school": "호계중", "date": "11.23.(월)", "class": 8, "no": 14, "name": "안지민", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "김향숙", "slot": 3}, {"id": "호계중-9-23", "school": "호계중", "date": "11.23.(월)", "class": 9, "no": 23, "name": "정혜원", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "김향숙", "slot": 4}, {"id": "호계중-2-3", "school": "호계중", "date": "11.23.(월)", "class": 2, "no": 3, "name": "김나예", "track": "② 경영·경제·상경 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "-", "teacher": "강은해", "slot": 1}, {"id": "호계중-2-11", "school": "호계중", "date": "11.23.(월)", "class": 2, "no": 11, "name": "나윤지", "track": "① 인문·어문·사회과학 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "강은해", "slot": 2}, {"id": "호계중-5-14", "school": "호계중", "date": "11.23.(월)", "class": 5, "no": 14, "name": "양서연", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "강은해", "slot": 3}, {"id": "호계중-6-18", "school": "호계중", "date": "11.23.(월)", "class": 6, "no": 18, "name": "이승빈", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "강은해", "slot": 4}, {"id": "내서중-1-1", "school": "내서중", "date": "11.24.(화)", "class": 1, "no": 1, "name": "강수현", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "공무원", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "내서여고 내신에서 상위권에 들기가 힘든가요? 영수를 제외하고도 다른 학원을 다녀야할까요? 야자는 어떤식으로 진행되나요? 공부하는 분위기 인가요?", "teacher": "진대현", "slot": 1}, {"id": "내서중-1-8", "school": "내서중", "date": "11.24.(화)", "class": 1, "no": 8, "name": "한시은", "track": "③ 자연과학·공학·IT 계열", "job": "AI", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "고등학교 들어가면 학업량이 얼마 정도 돼요?", "teacher": "진대현", "slot": 2}, {"id": "내서중-2-3", "school": "내서중", "date": "11.24.(화)", "class": 2, "no": 3, "name": "김보현", "track": "④ 의약학·보건·생명 계열", "job": "약연구원", "worries": "④ 2028 대입(수능·학생부)과 선택과목의 영향, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "진대현", "slot": 3}, {"id": "내서중-3-3", "school": "내서중", "date": "11.24.(화)", "class": 3, "no": 3, "name": "김가윤", "track": "③ 자연과학·공학·IT 계열", "job": "천문학자", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "-", "teacher": "진대현", "slot": 4}, {"id": "내서중-3-4", "school": "내서중", "date": "11.24.(화)", "class": 3, "no": 4, "name": "남채원", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "공무원", "worries": "④ 2028 대입(수능·학생부)과 선택과목의 영향, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "공부하는 분위기인가요", "teacher": "진대현", "slot": 5}, {"id": "내서중-1-4", "school": "내서중", "date": "11.24.(화)", "class": 1, "no": 4, "name": "박현정", "track": "⑤ 교육·사범 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "이주현", "slot": 1}, {"id": "내서중-1-7", "school": "내서중", "date": "11.24.(화)", "class": 1, "no": 7, "name": "정선우", "track": "② 경영·경제·상경 계열", "job": "국제학과", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "이주현", "slot": 2}, {"id": "내서중-3-6", "school": "내서중", "date": "11.24.(화)", "class": 3, "no": 6, "name": "박소연", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "이주현", "slot": 3}, {"id": "내서중-3-7", "school": "내서중", "date": "11.24.(화)", "class": 3, "no": 7, "name": "이서현", "track": "② 경영·경제·상경 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "이주현", "slot": 4}, {"id": "내서중-1-5", "school": "내서중", "date": "11.24.(화)", "class": 1, "no": 5, "name": "이지영", "track": "⑥ 예술·체육 계열", "job": "미용사", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "조은영", "slot": 1}, {"id": "내서중-1-6", "school": "내서중", "date": "11.24.(화)", "class": 1, "no": 6, "name": "이채은", "track": "④ 의약학·보건·생명 계열", "job": "간호사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "내서여고에 간호학과 관련 동아리가 있나요?", "teacher": "조은영", "slot": 2}, {"id": "내서중-2-1", "school": "내서중", "date": "11.24.(화)", "class": 2, "no": 1, "name": "감다은", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "-", "teacher": "조은영", "slot": 3}, {"id": "내서중-2-6", "school": "내서중", "date": "11.24.(화)", "class": 2, "no": 6, "name": "양가연", "track": "⑥ 예술·체육 계열", "job": "태권도학과 , 연기", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "조은영", "slot": 4}, {"id": "내서중-2-7", "school": "내서중", "date": "11.24.(화)", "class": 2, "no": 7, "name": "정연주", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "조은영", "slot": 5}, {"id": "내서중-1-9", "school": "내서중", "date": "11.24.(화)", "class": 1, "no": 9, "name": "박하영", "track": "② 경영·경제·상경 계열", "job": "경영학과, 통역사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "강은해", "slot": 1}, {"id": "내서중-2-8", "school": "내서중", "date": "11.24.(화)", "class": 2, "no": 8, "name": "정예린", "track": "② 경영·경제·상경 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "강은해", "slot": 2}, {"id": "내서중-3-1", "school": "내서중", "date": "11.24.(화)", "class": 3, "no": 1, "name": "강연서", "track": "② 경영·경제·상경 계열", "job": "경영학과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "마산내서여고에는 어떤 동아리가 있나요", "teacher": "강은해", "slot": 3}, {"id": "내서중-3-5", "school": "내서중", "date": "11.24.(화)", "class": 3, "no": 5, "name": "노시은", "track": "② 경영·경제·상경 계열", "job": "사업가", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "강은해", "slot": 4}, {"id": "광려중-4-9", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 9, "name": "노연우", "track": "④ 의약학·보건·생명 계열", "job": "응급구조학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "응급구조학과에 가려면 화학 지구과학 생물 해야하구 막 체육이나 이런것도 해야하는데 선택과목 이런걸 어떻게 정해야할지 잘 모르겠어염..", "teacher": "진대현", "slot": 1}, {"id": "광려중-4-18", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 18, "name": "이소은", "track": "④ 의약학·보건·생명 계열", "job": "간호학과???", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "공부를 얼마나많이 해야하나요?  그리고 고등학교가면 공부포기하는사람이많은데  그정도로 힘든가요? 또 매일매일공부를해야 상위권에 유지할수있나요?", "teacher": "진대현", "slot": 2}, {"id": "광려중-5-21", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 21, "name": "이하은", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "고등학교 특수교육 대하여 질문 하고 싶습니다", "teacher": "진대현", "slot": 3}, {"id": "광려중-6-13", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 13, "name": "김유랑", "track": "③ 자연과학·공학·IT 계열", "job": "생명공학과 화학공학과 대학교수  / 과학", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "진대현", "slot": 4}, {"id": "광려중-6-20", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 20, "name": "손채원", "track": "② 경영·경제·상경 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "4번 다섯 개 다 궁금해용 진로를 아직 아예 못 정해서 고민이에여ㅠ-ㅠ", "teacher": "진대현", "slot": 5}, {"id": "광려중-6-1", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 1, "name": "강서우", "track": "⑥ 예술·체육 계열", "job": "웹툰/만화", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "류연지", "slot": 1}, {"id": "광려중-6-2", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 2, "name": "강은새", "track": "① 인문·어문·사회과학 계열", "job": "국어국문학과 또는 문예창작학과", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "류연지", "slot": 2}, {"id": "광려중-6-10", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 10, "name": "김려원", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "류연지", "slot": 3}, {"id": "광려중-6-17", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 17, "name": "노규림", "track": "① 인문·어문·사회과학 계열", "job": "컨텐츠기획자", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "공부방법 및 생기부챙기는방법", "teacher": "류연지", "slot": 4}, {"id": "광려중-6-23", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 23, "name": "이은서", "track": "① 인문·어문·사회과학 계열", "job": "역사 수학", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "류연지", "slot": 5}, {"id": "광려중-4-12", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 12, "name": "박연제", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "마산내서여고만의 특색이 무엇인가요?", "teacher": "정헌석", "slot": 1}, {"id": "광려중-4-17", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 17, "name": "유지아", "track": "⑥ 예술·체육 계열", "job": "미용사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "정헌석", "slot": 2}, {"id": "광려중-5-15", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 15, "name": "이가현", "track": "④ 의약학·보건·생명 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "정헌석", "slot": 3}, {"id": "광려중-6-5", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 5, "name": "구나현", "track": "⑥ 예술·체육 계열", "job": "메이크업디자인학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "메이크업은 무슨 수업을 들어야 하나요?", "teacher": "정헌석", "slot": 4}, {"id": "광려중-6-21", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 21, "name": "신주원", "track": "③ 자연과학·공학·IT 계열", "job": "해양대 항해융합과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "생기부에 뭐가 필요한가요?", "teacher": "정헌석", "slot": 5}, {"id": "광려중-4-5", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 5, "name": "김소민", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "김지원", "slot": 1}, {"id": "광려중-5-18", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 18, "name": "이수빈", "track": "④ 의약학·보건·생명 계열", "job": "미정", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "없습니다 감사해요", "teacher": "김지원", "slot": 2}, {"id": "광려중-5-23", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 23, "name": "정다인", "track": "④ 의약학·보건·생명 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "없습니당", "teacher": "김지원", "slot": 3}, {"id": "광려중-5-24", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 24, "name": "최민서", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "사회복지학과,응급구조학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "마산내서여고에는 어떤 동아리가있나여", "teacher": "김지원", "slot": 4}, {"id": "광려중-6-19", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 19, "name": "서시윤", "track": "⑤ 교육·사범 계열", "job": "유치원교사 유아교육과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "김지원", "slot": 5}, {"id": "광려중-3-5", "school": "광려중", "date": "11.26.(목)", "class": 3, "no": 5, "name": "황채이", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "조은영", "slot": 1}, {"id": "광려중-5-10", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 10, "name": "서세인", "track": "④ 의약학·보건·생명 계열", "job": "간호사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "간호와 관련 되어 있는 동아리 있나요??", "teacher": "조은영", "slot": 2}, {"id": "광려중-5-14", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 14, "name": "윤서영", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "조은영", "slot": 3}, {"id": "광려중-6-7", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 7, "name": "구세정", "track": "⑥ 예술·체육 계열", "job": "시각디자인학과, 컴퓨터그래픽디자인학과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "조은영", "slot": 4}, {"id": "광려중-6-12", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 12, "name": "김소은", "track": "④ 의약학·보건·생명 계열", "job": "간호사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "조은영", "slot": 5}, {"id": "광려중-4-16", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 16, "name": "안지아", "track": "① 인문·어문·사회과학 계열", "job": "프로파일러", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "경찰행정학과가려면 어떤 과목을 선택해야할까요?", "teacher": "심예은", "slot": 1}, {"id": "광려중-6-4", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 4, "name": "강혜지", "track": "⑤ 교육·사범 계열", "job": "유치원교사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "심예은", "slot": 2}, {"id": "광려중-6-6", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 6, "name": "구민소", "track": "① 인문·어문·사회과학 계열", "job": "군무원(해군)", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "군무원이 될려면 고등학교때 어떤 과목을 선택해야 하나여", "teacher": "심예은", "slot": 3}, {"id": "광려중-6-9", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 9, "name": "김나원", "track": "⑤ 교육·사범 계열", "job": "초등학교 교사", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "고등학교 내신에서 좋은 성적을 받으려면 어떤 공부 습관을 가지는게 좋을까요? 교대를 희망하는 학생인데 생활기록부에 어떤 진로 활동이나 탐구 내용을 담는 것이 좋을까요?", "teacher": "심예은", "slot": 4}, {"id": "광려중-6-26", "school": "광려중", "date": "11.26.(목)", "class": 6, "no": 26, "name": "정윤서", "track": "① 인문·어문·사회과학 계열", "job": "변호사 교사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "교사랑 변호사가 어느정도 공부를 해야 할 수 있는건지 교사나 변호사 할려면 어떤 선택과목 해야하는지", "teacher": "심예은", "slot": 5}, {"id": "광려중-4-19", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 19, "name": "이예주", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "팽윤정", "slot": 1}, {"id": "광려중-4-21", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 21, "name": "전예솔", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "팽윤정", "slot": 2}, {"id": "광려중-5-5", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 5, "name": "김연경", "track": "⑥ 예술·체육 계열", "job": "유치원교사 /초등교사", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "유치원교사할려면 꼭 영어해야하나요?", "teacher": "팽윤정", "slot": 3}, {"id": "광려중-5-19", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 19, "name": "이유림", "track": "⑤ 교육·사범 계열", "job": "영어교육과", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "팽윤정", "slot": 4}, {"id": "광려중-4-7", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 7, "name": "김주아", "track": "⑥ 예술·체육 계열", "job": "교사 또는 실용음악과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "김향숙", "slot": 1}, {"id": "광려중-4-15", "school": "광려중", "date": "11.26.(목)", "class": 4, "no": 15, "name": "박현진", "track": "⑤ 교육·사범 계열", "job": "국어교육과, 심리학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "생기부 잘써주시나여", "teacher": "김향숙", "slot": 2}, {"id": "광려중-5-13", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 13, "name": "안지빈", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "김향숙", "slot": 3}, {"id": "광려중-5-22", "school": "광려중", "date": "11.26.(목)", "class": 5, "no": 22, "name": "임채현", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "김향숙", "slot": 4}, {"id": "삼계중-1-10", "school": "삼계중", "date": "12.3.(목)", "class": 1, "no": 10, "name": "박서연", "track": "④ 의약학·보건·생명 계열", "job": "간호학과 / 약학", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "간호학과나 약학 쪽에 관심이 있다면 고등학교때 어떤 과목들을 필수로 필요로 하는지, 그리고 간호사나 약사가 되려면 필수과목의 커트라인이 어디까지인지 궁금해요", "teacher": "진대현", "slot": 1}, {"id": "삼계중-2-6", "school": "삼계중", "date": "12.3.(목)", "class": 2, "no": 6, "name": "김민서", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "플로어리스트", "worries": "④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "꽃 관련학과로 갈려면 어떻게해야하나요?", "teacher": "진대현", "slot": 2}, {"id": "삼계중-2-7", "school": "삼계중", "date": "12.3.(목)", "class": 2, "no": 7, "name": "김민지", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "공부 어떻게 해야해요", "teacher": "진대현", "slot": 3}, {"id": "삼계중-3-17", "school": "삼계중", "date": "12.3.(목)", "class": 3, "no": 17, "name": "유채빈", "track": "⑥ 예술·체육 계열", "job": "무용", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "내신 쉽나요?", "teacher": "진대현", "slot": 4}, {"id": "삼계중-6-22", "school": "삼계중", "date": "12.3.(목)", "class": 6, "no": 22, "name": "전소은", "track": "① 인문·어문·사회과학 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "급식은 맛있나요", "teacher": "진대현", "slot": 5}, {"id": "삼계중-7-4", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 4, "name": "김채민", "track": "⑥ 예술·체육 계열", "job": "조리과나간호학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "고등학교가면 공부하기싫어도 꼭 해야하나요", "teacher": "진대현", "slot": 6}, {"id": "삼계중-4-5", "school": "삼계중", "date": "12.3.(목)", "class": 4, "no": 5, "name": "김나윤", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "영어를 못하는데 승무원을 꿈 중에 담아두고 있어요 영어공부를 어떻게 해야하는지도 모르겠고 승무원에 관해서 무엇을 공부해야하는지도 잘 모르겠어요", "teacher": "정헌석", "slot": 1}, {"id": "삼계중-4-21", "school": "삼계중", "date": "12.3.(목)", "class": 4, "no": 21, "name": "정아윤", "track": "③ 자연과학·공학·IT 계열", "job": "통계데이터학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "통계데이터사이언스학과에 진학하려면 수학 과목 중에서 미적분, 확률과 통계, 기하 중 어떤 과목들을 필수로 이수해야 하는지, 어떤 과목을 더 신경써야할지,필수적으로 해야할 활동이나 진학에 유리한 활동이 있는지", "teacher": "정헌석", "slot": 2}, {"id": "삼계중-5-14", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 14, "name": "안채원", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "고등학교에서는 어떤식으로 공부해야 성적이 잘 나올까요", "teacher": "정헌석", "slot": 3}, {"id": "삼계중-5-17", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 17, "name": "이지혜", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "진로를 찾는 중인데 무슨 선택 과목을 해야 할 지 모르겠다.", "teacher": "정헌석", "slot": 4}, {"id": "삼계중-6-12", "school": "삼계중", "date": "12.3.(목)", "class": 6, "no": 12, "name": "신예원", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "진로에 대해 결정을 못했는데 고등학교가서 영향에 미칠까요?", "teacher": "정헌석", "slot": 5}, {"id": "삼계중-6-15", "school": "삼계중", "date": "12.3.(목)", "class": 6, "no": 15, "name": "이서영", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "진로를 아직 못 정한 것이 고등학교에서 생활하는데 많이 불리한가요?", "teacher": "정헌석", "slot": 6}, {"id": "삼계중-1-1", "school": "삼계중", "date": "12.3.(목)", "class": 1, "no": 1, "name": "강하은", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "김지원", "slot": 1}, {"id": "삼계중-1-6", "school": "삼계중", "date": "12.3.(목)", "class": 1, "no": 6, "name": "김채원", "track": "④ 의약학·보건·생명 계열", "job": "피부과의사, 한의사", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "원하는 직업이나 과에 관련된 동아리를 듣는 것이 좋을까요?", "teacher": "김지원", "slot": 2}, {"id": "삼계중-3-5", "school": "삼계중", "date": "12.3.(목)", "class": 3, "no": 5, "name": "김서연", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "김지원", "slot": 3}, {"id": "삼계중-6-19", "school": "삼계중", "date": "12.3.(목)", "class": 6, "no": 19, "name": "이해인", "track": "④ 의약학·보건·생명 계열", "job": "약학과 물리치료학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "김지원", "slot": 4}, {"id": "삼계중-7-2", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 2, "name": "강지현", "track": "⑥ 예술·체육 계열", "job": "메이크업", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "김지원", "slot": 5}, {"id": "삼계중-7-17", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 17, "name": "정혜원", "track": "⑥ 예술·체육 계열", "job": "메이크업", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "김지원", "slot": 6}, {"id": "삼계중-1-7", "school": "삼계중", "date": "12.3.(목)", "class": 1, "no": 7, "name": "김하경", "track": "④ 의약학·보건·생명 계열", "job": "미정", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "이주현", "slot": 1}, {"id": "삼계중-3-6", "school": "삼계중", "date": "12.3.(목)", "class": 3, "no": 6, "name": "김성현", "track": "⑥ 예술·체육 계열", "job": "건축학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "고등학교에 가서 동아리 활동을 어떻게 하면 좋을지 궁금해요! 그리고 고등학교 내신관리를 어떻게 해야 잘 될지 궁금해요.", "teacher": "이주현", "slot": 2}, {"id": "삼계중-3-12", "school": "삼계중", "date": "12.3.(목)", "class": 3, "no": 12, "name": "민해솔", "track": "④ 의약학·보건·생명 계열", "job": "간호학과,보건교사", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "간호학과에 가려면 어느 과목 중심으로 공부를 가장 열심히 해야하나요?", "teacher": "이주현", "slot": 3}, {"id": "삼계중-3-24", "school": "삼계중", "date": "12.3.(목)", "class": 3, "no": 24, "name": "최효원", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "이주현", "slot": 4}, {"id": "삼계중-4-10", "school": "삼계중", "date": "12.3.(목)", "class": 4, "no": 10, "name": "남서현", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "이주현", "slot": 5}, {"id": "삼계중-7-19", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 19, "name": "조혜인", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "이주현", "slot": 6}, {"id": "삼계중-1-22", "school": "삼계중", "date": "12.3.(목)", "class": 1, "no": 22, "name": "정승현", "track": "⑥ 예술·체육 계열", "job": "웹툰작가", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "진로는 정했는데 어느 학과를 가야 하는지 모르겠어요. 아직 학과 미정 상태일 때 어느 과목들을 정하고 공부하는데 유리한지 알고 싶어요.", "teacher": "조은영", "slot": 1}, {"id": "삼계중-2-2", "school": "삼계중", "date": "12.3.(목)", "class": 2, "no": 2, "name": "강예린", "track": "⑤ 교육·사범 계열", "job": "국어선생님", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "국어 선생님이 되기 위해서 특별히 더 열심히 해야할 공부나 활동이 있을까요?", "teacher": "조은영", "slot": 2}, {"id": "삼계중-2-4", "school": "삼계중", "date": "12.3.(목)", "class": 2, "no": 4, "name": "김나은", "track": "④ 의약학·보건·생명 계열", "job": "치과의사", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "치의대 갈때 무슨 책 읽으면 좋나요! 치의대 갈때 무슨 선택 과목 골라야하나요!", "teacher": "조은영", "slot": 3}, {"id": "삼계중-2-10", "school": "삼계중", "date": "12.3.(목)", "class": 2, "no": 10, "name": "김예봄", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "조은영", "slot": 4}, {"id": "삼계중-5-10", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 10, "name": "류하린", "track": "① 인문·어문·사회과학 계열", "job": "사서", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "마산내서여자고등학교에는 어떤 동아리들이 있나요?", "teacher": "조은영", "slot": 5}, {"id": "삼계중-6-13", "school": "삼계중", "date": "12.3.(목)", "class": 6, "no": 13, "name": "안세정", "track": "⑥ 예술·체육 계열", "job": "웹툰작가", "worries": "① 고교학점제 개념 및 중학교와의 차이, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "조은영", "slot": 6}, {"id": "삼계중-5-2", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 2, "name": "강민서", "track": "⑤ 교육·사범 계열", "job": "사회복지학과", "worries": "⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "사회복지사 될려면 어떤 과목을 잘 해야하나요?", "teacher": "심예은", "slot": 1}, {"id": "삼계중-5-7", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 7, "name": "김예서", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "심예은", "slot": 2}, {"id": "삼계중-5-11", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 11, "name": "박소윤", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "심예은", "slot": 3}, {"id": "삼계중-5-13", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 13, "name": "백지민", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "-", "teacher": "심예은", "slot": 4}, {"id": "삼계중-7-7", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 7, "name": "박지은", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "제과제빵", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "심예은", "slot": 5}, {"id": "삼계중-7-10", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 10, "name": "신유린", "track": "⑥ 예술·체육 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "진로를 아직 못정했는에 고등학교가서 그거에 대한 방법이 있는지 궁금해요", "teacher": "심예은", "slot": 6}, {"id": "삼계중-2-12", "school": "삼계중", "date": "12.3.(목)", "class": 2, "no": 12, "name": "박민서", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "박호진", "slot": 1}, {"id": "삼계중-3-7", "school": "삼계중", "date": "12.3.(목)", "class": 3, "no": 7, "name": "김정우", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "미정", "worries": "③ 고등학교 내신 산출 방식(5등급제)과 평가 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "박호진", "slot": 2}, {"id": "삼계중-4-9", "school": "삼계중", "date": "12.3.(목)", "class": 4, "no": 9, "name": "김지유", "track": "⑥ 예술·체육 계열", "job": "방송pd/수학 좋아함", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "내 진로에 맞게 대학 가려면 무슨 과목을 선택해야하며, 무슨 과목을 잘해야하나요?", "teacher": "박호진", "slot": 3}, {"id": "삼계중-4-19", "school": "삼계중", "date": "12.3.(목)", "class": 4, "no": 19, "name": "이한비", "track": "⑤ 교육·사범 계열", "job": "국어교육과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ③ 고등학교 내신 산출 방식(5등급제)과 평가 방법", "question": "-", "teacher": "박호진", "slot": 4}, {"id": "삼계중-6-24", "school": "삼계중", "date": "12.3.(목)", "class": 6, "no": 24, "name": "추미소", "track": "④ 의약학·보건·생명 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "-", "teacher": "박호진", "slot": 5}, {"id": "삼계중-7-12", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 12, "name": "유다원", "track": "④ 의약학·보건·생명 계열", "job": "미정", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "-", "teacher": "박호진", "slot": 6}, {"id": "삼계중-1-14", "school": "삼계중", "date": "12.3.(목)", "class": 1, "no": 14, "name": "배정원", "track": "② 경영·경제·상경 계열", "job": "경영학과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "경제학과에 가려면 세특에 어떤 내용을 적어야 해요?", "teacher": "강은해", "slot": 1}, {"id": "삼계중-3-23", "school": "삼계중", "date": "12.3.(목)", "class": 3, "no": 23, "name": "정예진", "track": "① 인문·어문·사회과학 계열", "job": "심리학과", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ⑤ 고등학교 학업량, 동아리 및 학교생활 적응 요령", "question": "-", "teacher": "강은해", "slot": 2}, {"id": "삼계중-5-4", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 4, "name": "곽현채", "track": "① 인문·어문·사회과학 계열", "job": "일어학과", "worries": "① 고교학점제 개념 및 중학교와의 차이", "question": "-", "teacher": "강은해", "slot": 3}, {"id": "삼계중-5-5", "school": "삼계중", "date": "12.3.(목)", "class": 5, "no": 5, "name": "김나현", "track": "⑦ 미정 (관심 분야 탐색 중)", "job": "간호사 또는 공무원", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "강은해", "slot": 4}, {"id": "삼계중-7-5", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 5, "name": "문시우", "track": "② 경영·경제·상경 계열", "job": "미정", "worries": "② 내 진로에 맞는 고등학교 선택과목 설계 방법, ④ 2028 대입(수능·학생부)과 선택과목의 영향", "question": "마산내서여고에는 경영 이런쪽과 관련된 동아리가 있나요?", "teacher": "강은해", "slot": 5}, {"id": "삼계중-7-21", "school": "삼계중", "date": "12.3.(목)", "class": 7, "no": 21, "name": "최유진", "track": "① 인문·어문·사회과학 계열", "job": "심리학과", "worries": "① 고교학점제 개념 및 중학교와의 차이, ② 내 진로에 맞는 고등학교 선택과목 설계 방법", "question": "-", "teacher": "강은해", "slot": 6}];
+
+let studentsData = JSON.parse(JSON.stringify(INITIAL_STUDENTS));
+let loggedInTeacher = "";
+let currentSchool = "";
+
+// 서버 동기화 상태: { [studentId]: { done: boolean, memo: string } }
+function safeGetLocal(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function safeSetLocal(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+function safeDelLocal(k) { try { localStorage.removeItem(k); } catch (e) {} }
+function safeGetSession(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+function safeSetSession(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+function safeDelSession(k) { try { sessionStorage.removeItem(k); } catch (e) {} }
+
+let serverRecords = {};
+const memoTimers = {};
+
+function loadPendingBuffer() {
+    try {
+        return JSON.parse(localStorage.getItem("expo_pending_memos") || "{}");
+    } catch (e) {
+        return {};
+    }
+}
+function savePendingBuffer(buf) {
+    try {
+        localStorage.setItem("expo_pending_memos", JSON.stringify(buf));
+    } catch (e) {}
+}
+
+function getEffectiveRecord(studentId) {
+    const pending = loadPendingBuffer()[studentId];
+    const srv = serverRecords[studentId] || { done: false, memo: "" };
+    // 최근 25초 이내 방금 저장한 내역은 시트 수식 반영 지연 동안 우선 표시
+    if (pending && (Date.now() - pending.ts < 25000)) {
+        return { done: !!pending.done, memo: String(pending.memo || "") };
+    }
+    return srv;
+}
+
+function getRoomName(school, teacher) {
+    return (ROOM_MAP[school] && ROOM_MAP[school][teacher]) || "상담실";
+}
+
+function normalizeTeacherInput(raw) {
+    return String(raw || "")
+        .replace(/선생님/g, "")
+        .replace(/교사/g, "")
+        .replace(/쌤/g, "")
+        .replace(/\s+/g, "")
+        .trim();
+}
+
+function findTeacherByName(raw) {
+    const norm = normalizeTeacherInput(raw);
+    if (!norm) return null;
+    return TEACHERS.find(t => t.name === norm) || null;
+}
+
+function getMySchools(teacherName) {
+    const tObj = TEACHERS.find(t => t.name === teacherName);
+    return SCHOOL_ORDER.filter(sc =>
+        (tObj && tObj.schools[sc]) ||
+        studentsData.some(s => s.school === sc && s.teacher === teacherName)
+    );
+}
+
+function initAuth() {
+    const savedName = safeGetLocal("expo_my_teacher_name") || safeGetSession("expo_my_teacher_name") || "";
+    const found = findTeacherByName(savedName);
+
+    if (found) {
+        enterTeacherView(found.name, false);
+    } else {
+        showLoginScreen();
+    }
+}
+
+function showLoginScreen() {
+    loggedInTeacher = "";
+    document.getElementById("appShell").style.display = "none";
+    document.getElementById("cardsContainer").innerHTML = "";
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("loginError").textContent = "";
+    setTimeout(() => document.getElementById("teacherNameInput").focus(), 50);
+}
+
+function handleTeacherLogin(e) {
+    e.preventDefault();
+    const rawName = document.getElementById("teacherNameInput").value;
+    const errEl = document.getElementById("loginError");
+
+    const found = findTeacherByName(rawName);
+    if (!found) {
+        errEl.textContent = "컨설팅 명단에 등록되지 않은 성함입니다. 성함을 확인해 주세요.";
+        document.getElementById("teacherNameInput").focus();
+        return;
+    }
+
+    const remember = document.getElementById("rememberLogin").checked;
+    enterTeacherView(found.name, remember);
+}
+
+function enterTeacherView(teacherName, persistLocal) {
+    loggedInTeacher = teacherName;
+    safeSetSession("expo_my_teacher_name", teacherName);
+    if (persistLocal) {
+        safeSetLocal("expo_my_teacher_name", teacherName);
+    }
+
+    const mySchools = getMySchools(teacherName);
+    const savedSchool = safeGetLocal(`expo_my_school_${teacherName}`);
+    currentSchool = (savedSchool && mySchools.includes(savedSchool)) ? savedSchool : (mySchools[0] || "호계중");
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("appShell").style.display = "block";
+    renderAll();
+}
+
+function handleLogout() {
+    safeDelLocal("expo_my_teacher_name");
+    safeDelLocal("expo_my_teacher_auth");
+    safeDelSession("expo_my_teacher_name");
+    safeDelSession("expo_my_teacher_auth");
+    document.getElementById("teacherNameInput").value = "";
+    showLoginScreen();
+}
+
+// ================= 구글 시트 실시간 불러오기 (배정 + 완료여부 + 상담메모) =================
+function syncFromGoogleSheet(manualNotify = false) {
+    const cbName = "__gvizMyCardCb_" + Date.now();
+    const script = document.createElement("script");
+    const timer = setTimeout(() => {
+        cleanup();
+        setSyncStatus("내장 데이터 표시 중", false);
+    }, 8000);
+
+    function cleanup() {
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    window[cbName] = function(resp) {
+        cleanup();
+        try {
+            if (!resp || resp.status !== "ok" || !resp.table || !resp.table.rows) throw new Error("Invalid");
+            const parsed = [];
+            const nextRecords = {};
+            const pendingBuf = loadPendingBuffer();
+            let pendingChanged = false;
+
+            for (const rowObj of resp.table.rows) {
+                const c = rowObj.c || [];
+                const val = idx => (c[idx] && c[idx].v !== null && c[idx].v !== undefined) ? c[idx].v : "";
+                const dateStr = String(val(0)).trim();
+                const school = String(val(1)).trim();
+                const teacher = String(val(2)).trim();
+                const slot = Math.round(Number(val(3)) || 1);
+                const sClass = Math.round(Number(val(4)) || 1);
+                const sNo = Math.round(Number(val(5)) || 1);
+                const name = String(val(6)).trim();
+                const track = String(val(7)).trim();
+                const job = String(val(8)).trim();
+                const worries = String(val(9)).trim();
+                const question = String(val(10)).trim() || "-";
+                const id = String(val(11)).trim() || `${school}-${sClass}-${sNo}`;
+                const doneCol = String(val(12)).trim();
+                const memoCol = String(val(13) || "").replace(/^'/, "");
+
+                if (school && name) {
+                    parsed.push({ id, date: dateStr, school, teacher, slot, class: sClass, no: sNo, name, track, job, worries, question });
+                    const srvDone = (doneCol === "완료");
+                    nextRecords[id] = { done: srvDone, memo: memoCol };
+
+                    if (pendingBuf[id] && pendingBuf[id].done === srvDone && pendingBuf[id].memo === memoCol) {
+                        delete pendingBuf[id];
+                        pendingChanged = true;
+                    }
+                }
+            }
+            if (pendingChanged) savePendingBuffer(pendingBuf);
+
+            if (parsed.length > 0) {
+                studentsData = parsed;
+                serverRecords = nextRecords;
+                // 입력 중인 메모창이 없을 때만 카드 전체 재렌더링 (한글 조합 끊김 방지)
+                const activeEl = document.activeElement;
+                if (loggedInTeacher && (!activeEl || !activeEl.classList.contains("memo-input"))) {
+                    renderAll();
+                }
+                setSyncStatus("구글 시트 실시간 연동됨", true);
+                if (manualNotify) showToast("✅ 서버에서 최신 배정 및 상담 메모를 불러왔습니다.");
+            }
+        } catch (err) {
+            setSyncStatus("기본 데이터 표시 중", false);
+        }
+    };
+
+    script.onerror = function() {
+        cleanup();
+        setSyncStatus("오프라인 백업 데이터 사용 중", false);
+    };
+    script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:${cbName}&gid=${MATCH_GID}&_ts=${Date.now()}`;
+    document.body.appendChild(script);
+}
+
+function setSyncStatus(msg, ok) {
+    document.getElementById("syncStatusText").textContent = msg;
+    document.getElementById("syncStatusBadge").style.background = ok ? "rgba(16, 185, 129, 0.2)" : "rgba(245, 158, 11, 0.22)";
+}
+
+// ================= 서버 실시간 저장 (상담 완료 + 메모) =================
+function sanitizeForSheetCell(text) {
+    const str = String(text || "").trim();
+    if (!str) return "";
+    // -, +, =, @ 로 시작하는 메모가 수식으로 오인되지 않도록 작은따옴표 이스케이프
+    if (/^[=+\-@']/.test(str)) {
+        return "'" + str;
+    }
+    return str;
+}
+
+function setMemoStatusUI(studentId, state, label) {
+    const el = document.getElementById(`memoStatus_${studentId}`);
+    if (!el) return;
+    el.className = `memo-status ${state}`;
+    el.textContent = label;
+}
+
+async function pushRecordToServer(studentId, doneVal, memoVal, showToastOnDone = false) {
+    const cleanMemo = String(memoVal || "").trim();
+    const cur = getEffectiveRecord(studentId);
+    serverRecords[studentId] = { done: !!doneVal, memo: cleanMemo };
+
+    const buf = loadPendingBuffer();
+    buf[studentId] = { done: !!doneVal, memo: cleanMemo, ts: Date.now() };
+    savePendingBuffer(buf);
+
+    setMemoStatusUI(studentId, "saving", "⏳ 서버에 저장 중...");
+
+    const payload = {
+        name: "상담메모",
+        subject: studentId,
+        participation: doneVal ? "완료" : "미완료",
+        schools: doneVal ? "완료" : "미완료",
+        track: sanitizeForSheetCell(cleanMemo)
+    };
+
+    try {
+        await fetch(MEMO_SYNC_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify(payload)
+        });
+        setMemoStatusUI(studentId, "synced", "☁️ 서버 저장됨 (모든 기기 자동 연동)");
+        if (showToastOnDone) showToast("☁️ 상담 메모가 서버에 저장되었습니다.");
+    } catch (err) {
+        setMemoStatusUI(studentId, "error", "⚠️ 네트워크 오류 (다시 [저장]을 눌러주세요)");
+    }
+}
+
+function handleMemoInput(studentId, val) {
+    setMemoStatusUI(studentId, "dirty", "✏️ 작성 중... (잠시 후 서버에 자동 저장)");
+    clearTimeout(memoTimers[studentId]);
+    memoTimers[studentId] = setTimeout(() => {
+        const rec = getEffectiveRecord(studentId);
+        pushRecordToServer(studentId, rec.done, val, false);
+    }, 1200);
+}
+
+function handleMemoBlur(studentId, val) {
+    if (memoTimers[studentId]) {
+        clearTimeout(memoTimers[studentId]);
+        delete memoTimers[studentId];
+        const rec = getEffectiveRecord(studentId);
+        pushRecordToServer(studentId, rec.done, val, false);
+    }
+}
+
+function handleManualMemoSave(studentId) {
+    clearTimeout(memoTimers[studentId]);
+    delete memoTimers[studentId];
+    const textarea = document.getElementById(`memoInput_${studentId}`);
+    const val = textarea ? textarea.value : getEffectiveRecord(studentId).memo;
+    const rec = getEffectiveRecord(studentId);
+    pushRecordToServer(studentId, rec.done, val, true);
+}
+
+function toggleDone(studentId) {
+    const textarea = document.getElementById(`memoInput_${studentId}`);
+    const currentMemo = textarea ? textarea.value : getEffectiveRecord(studentId).memo;
+    const nextDone = !getEffectiveRecord(studentId).done;
+
+    const card = document.getElementById(`card_${studentId}`);
+    const btn = document.getElementById(`doneBtn_${studentId}`);
+    if (card) card.classList.toggle("done", nextDone);
+    if (btn) {
+        btn.classList.toggle("checked", nextDone);
+        btn.textContent = nextDone ? "✅ 상담 완료" : "⬜ 완료 체크";
+    }
+
+    pushRecordToServer(studentId, nextDone, currentMemo, false);
+    updateProgressHeaderOnly();
+}
+
+function updateProgressHeaderOnly() {
+    const myStudents = studentsData.filter(s => s.school === currentSchool && s.teacher === loggedInTeacher);
+    const doneCount = myStudents.filter(s => getEffectiveRecord(s.id).done).length;
+    const pct = myStudents.length ? Math.round((doneCount / myStudents.length) * 100) : 0;
+    document.getElementById("progressFill").style.width = `${pct}%`;
+    document.getElementById("progressText").textContent = `${doneCount} / ${myStudents.length}명 완료 (${pct}%)`;
+}
+
+function getTrackClass(track) {
+    if (track.includes("①")) return "track-t1";
+    if (track.includes("②")) return "track-t2";
+    if (track.includes("③")) return "track-t3";
+    if (track.includes("④")) return "track-t4";
+    if (track.includes("⑤")) return "track-t5";
+    if (track.includes("⑥")) return "track-t6";
+    return "track-t7";
+}
+
+function escapeHtml(str) {
+    return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function showToast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+}
+
+function selectSchool(sc) {
+    currentSchool = sc;
+    if (loggedInTeacher) {
+        safeSetLocal(`expo_my_school_${loggedInTeacher}`, sc);
+    }
+    renderAll();
+}
+
+function renderAll() {
+    if (!loggedInTeacher) return;
+
+    const mySchools = getMySchools(loggedInTeacher);
+    if (!mySchools.includes(currentSchool)) {
+        currentSchool = mySchools[0] || "호계중";
+    }
+
+    document.getElementById("headerTitle").textContent = `${loggedInTeacher} 선생님 · 1:1 컨설팅 상담 카드`;
+    document.getElementById("teacherUserBadge").textContent = `👩‍🏫 ${loggedInTeacher} 선생님`;
+
+    document.getElementById("schoolTabs").innerHTML = mySchools.map(sc => {
+        const myCnt = studentsData.filter(s => s.school === sc && s.teacher === loggedInTeacher).length;
+        const info = SCHOOL_INFO[sc];
+        return `<button type="button" class="school-tab ${sc === currentSchool ? 'active' : ''}" onclick="selectSchool('${sc}')">
+            ${info.date} ${sc} <span class="cnt">내 배정 ${myCnt}명</span>
+        </button>`;
+    }).join("");
+
+    const info = SCHOOL_INFO[currentSchool];
+    const roomName = getRoomName(currentSchool, loggedInTeacher);
+    const myStudents = studentsData
+        .filter(s => s.school === currentSchool && s.teacher === loggedInTeacher)
+        .sort((a, b) => a.slot - b.slot);
+
+    document.getElementById("bannerDate").textContent = `📅 ${info.date} ${info.time}`;
+    document.getElementById("bannerRoom").textContent = `📍 배정 교실: ${roomName}`;
+    document.getElementById("bannerTitle").textContent = `${info.fullName} · ${loggedInTeacher} 선생님 담당 학생 (${myStudents.length}명)`;
+    document.getElementById("bannerMeta").textContent = `학생 집결 대기실: ${info.waitingRoom} · 메모·완료 체크는 서버에 실시간 저장되어 모든 기기에서 연동됩니다`;
+
+    updateProgressHeaderOnly();
+
+    const container = document.getElementById("cardsContainer");
+    if (myStudents.length === 0) {
+        container.innerHTML = `<div class="empty-school-box">이 학교에 배정된 학생이 없습니다.</div>`;
+        return;
+    }
+
+    container.innerHTML = `<div class="cards-grid">
+        ${myStudents.map(s => renderSingleConsultCard(s)).join("")}
+    </div>`;
+}
+
+function renderSingleConsultCard(s) {
+    const rec = getEffectiveRecord(s.id);
+    const done = rec.done;
+    const memoVal = escapeHtml(rec.memo);
+    const hasMemo = Boolean(rec.memo && rec.memo.trim());
+    const hasQ = s.question && s.question !== "-" && !["없습니다", "없습니당", "없음"].includes(s.question.trim());
+
+    return `
+    <div id="card_${s.id}" class="consult-card ${done ? 'done' : ''}">
+        <div class="card-top">
+            <div class="student-head">
+                <span class="slot-pill">${s.slot}순번</span>
+                <span class="student-title">${escapeHtml(s.name)}</span>
+                <span class="student-classno">3학년 ${s.class}반 ${s.no}번</span>
+            </div>
+            <button type="button" id="doneBtn_${s.id}" class="done-toggle ${done ? 'checked' : ''}" onclick="toggleDone('${s.id}')">
+                ${done ? '✅ 상담 완료' : '⬜ 완료 체크'}
+            </button>
+        </div>
+
+        <div>
+            <span class="track-badge ${getTrackClass(s.track)}">${escapeHtml(s.track)}</span>
+        </div>
+
+        <div class="info-block">
+            <div class="info-row">
+                <span class="info-key">🎯 희망 진로·학과</span>
+                <span class="job-highlight">${escapeHtml(s.job || '미정')}</span>
+            </div>
+            <div class="info-row">
+                <span class="info-key">💭 주요 관심사</span>
+                <span>${escapeHtml(s.worries || '-')}</span>
+            </div>
+        </div>
+
+        ${hasQ ? `
+        <div class="question-box">
+            <span class="question-label">💬 학생 사전 질문</span>
+            ${escapeHtml(s.question)}
+        </div>` : `
+        <div class="question-box empty">
+            별도 기재한 사전 질문 없음 (${escapeHtml(s.question)})
+        </div>`}
+
+        <div class="memo-wrap">
+            <textarea id="memoInput_${s.id}" class="memo-input" rows="2" placeholder="상담 키워드·추천 선택과목 메모 (작성 후 자동 서버 저장)" oninput="handleMemoInput('${s.id}', this.value)" onblur="handleMemoBlur('${s.id}', this.value)">${memoVal}</textarea>
+            <div class="memo-footer">
+                <span id="memoStatus_${s.id}" class="memo-status ${hasMemo || done ? 'synced' : ''}">
+                    ${hasMemo || done ? '☁️ 서버 저장됨 (모든 기기 자동 연동)' : '☁️ 입력 시 서버에 자동 저장됩니다'}
+                </span>
+                <button type="button" class="memo-save-btn" onclick="handleManualMemoSave('${s.id}')">💾 서버 저장</button>
+            </div>
+        </div>
+    </div>`;
+}
+
+initAuth();
+syncFromGoogleSheet(false);
+</script>
+</body>
+</html>
