@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 찾아가는 고교학점제 박람회 · 호계중학교 컨설팅 배정표</title>
+    <style>
+        :root {
+            --navy: #1e3a8a;
+            --navy-dark: #0f172a;
+            --blue: #2563eb;
+            --blue-light: #eff6ff;
+            --blue-border: #bfdbfe;
+            --teal: #0f766e;
+            --teal-light: #f0fdfa;
+            --rose: #e11d48;
+            --gray-900: #0f172a;
+            --gray-800: #1e293b;
+            --gray-700: #334155;
+            --gray-600: #475569;
+            --gray-500: #64748b;
+            --gray-300: #cbd5e1;
+            --gray-200: #e2e8f0;
+            --gray-100: #f1f5f9;
+            --gray-50: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            word-break: keep-all;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Malgun Gothic", "맑은 고딕", sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.5;
+        }
+
+        /* 잠금 화면 */
+        .lock-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #0f766e 55%, #1e3a8a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+        .lock-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            padding: 34px 30px;
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+        .lock-badge {
+            display: inline-block;
+            background: var(--teal-light);
+            color: var(--teal);
+            font-size: 12px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 999px;
+            margin-bottom: 12px;
+        }
+        .lock-card h1 {
+            margin: 0 0 8px 0;
+            font-size: 21px;
+            color: var(--gray-900);
+            letter-spacing: -0.5px;
+        }
+        .lock-card p {
+            margin: 0 0 22px 0;
+            font-size: 13.5px;
+            color: var(--gray-600);
+        }
+        .code-input {
+            width: 100%;
+            padding: 14px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 10px;
+            text-align: center;
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            outline: none;
+        }
+        .code-input:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.14);
+        }
+        .lock-remember {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            margin-top: 14px;
+            font-size: 13px;
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+        .lock-btn {
+            width: 100%;
+            margin-top: 18px;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            background: var(--teal);
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .lock-btn:hover { background: #0d9488; }
+        .lock-error {
+            color: var(--rose);
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+
+        /* 상단 헤더 */
+        .top-header {
+            background: linear-gradient(135deg, #0f172a 0%, #0f766e 100%);
+            color: #ffffff;
+            padding: 18px 20px 14px;
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18);
+        }
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .brand-pill {
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .brand-title h1 {
+            margin: 0;
+            font-size: 18.5px;
+            font-weight: 800;
+            letter-spacing: -0.4px;
+        }
+        .sync-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .sync-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 11px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.22);
+            border: 1px solid rgba(52, 211, 153, 0.45);
+            color: #ecfdf5;
+        }
+        .sync-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+        }
+        .header-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .header-btn:hover { background: rgba(255, 255, 255, 0.26); }
+
+        .school-tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .school-tab {
+            background: rgba(255, 255, 255, 0.12);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .school-tab:hover { background: rgba(255, 255, 255, 0.22); color: #ffffff; }
+        .school-tab.active {
+            background: #ffffff;
+            color: var(--navy-dark);
+            border-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+        }
+        .school-tab .cnt {
+            display: inline-block;
+            margin-left: 4px;
+            padding: 1px 6px;
+            border-radius: 999px;
+            font-size: 11px;
+            background: rgba(15, 23, 42, 0.1);
+        }
+        .school-tab:not(.active) .cnt { background: rgba(255, 255, 255, 0.18); }
+
+        /* 메인 영역 */
+        .main-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 18px 60px;
+        }
+        .school-banner {
+            background: #ffffff;
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        }
+        .school-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .school-date-chip {
+            background: var(--teal-light);
+            color: var(--teal);
+            border: 1px solid #99f6e4;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+        .school-banner-title {
+            font-size: 18.5px;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+        .school-banner-meta {
+            font-size: 13.5px;
+            color: var(--gray-600);
+        }
+        .action-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            border: 1px solid var(--gray-300);
+            background: #ffffff;
+            color: var(--gray-800);
+            padding: 8px 14px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn:hover { border-color: var(--teal); color: var(--teal); }
+        .btn-teal {
+            background: var(--teal);
+            color: #ffffff;
+            border-color: var(--teal);
+        }
+        .btn-teal:hover { background: #0d9488; color: #ffffff; }
+
+        .subview-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .subview-pills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .subview-pill {
+            border: 1.5px solid var(--gray-300);
+            background: #ffffff;
+            color: var(--gray-700);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        .subview-pill.active {
+            background: var(--navy);
+            color: #ffffff;
+            border-color: var(--navy);
+        }
+        .search-input {
+            padding: 9px 14px;
+            border: 1.5px solid var(--gray-300);
+            border-radius: 10px;
+            font-size: 13.5px;
+            min-width: 250px;
+            background: #ffffff;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--navy);
+        }
+
+        /* 상담실별 그리드 */
+        .booth-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+        @media (max-width: 1100px) {
+            .booth-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .booth-grid { grid-template-columns: 1fr; }
+        }
+        .booth-card {
+            background: #ffffff;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        }
+        .booth-head {
+            background: var(--navy);
+            color: #ffffff;
+            padding: 13px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+        .booth-room-badge {
+            font-size: 12.5px;
+            background: #fef08a;
+            color: #0f172a;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+        .booth-teacher {
+            font-size: 16px;
+            font-weight: 800;
+        }
+        .booth-list {
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+        .booth-slot-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8.5px 11px;
+            border-radius: 8px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+        }
+        .booth-slot-item.highlight {
+            background: #fef9c3;
+            border-color: #facc15;
+        }
+        .booth-slot-no {
+            background: var(--blue-light);
+            color: var(--navy);
+            font-weight: 800;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            min-width: 46px;
+            text-align: center;
+        }
+        .booth-st-info {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+        }
+        .booth-st-name {
+            font-weight: 800;
+            font-size: 14.5px;
+            color: var(--gray-900);
+        }
+        .booth-st-class {
+            font-size: 12.8px;
+            color: var(--gray-600);
+            font-weight: 700;
+        }
+
+        /* 반·번호순 표 */
+        .table-card {
+            background: #ffffff;
+            border: 1px solid var(--gray-200);
+            border-radius: 14px;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        }
+        table.roster-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        table.roster-table th {
+            background: var(--gray-100);
+            color: var(--gray-900);
+            font-weight: 800;
+            padding: 12px 12px;
+            border-bottom: 2px solid var(--gray-300);
+            text-align: center;
+            white-space: nowrap;
+        }
+        table.roster-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--gray-200);
+            text-align: center;
+            vertical-align: middle;
+        }
+        table.roster-table tr:hover td { background: #f8fafc; }
+        .room-tag {
+            display: inline-block;
+            background: var(--teal-light);
+            color: var(--teal);
+            border: 1px solid #99f6e4;
+            font-weight: 800;
+            font-size: 12.5px;
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        /* 전자칠판 전체화면 대기실 모드 */
+        body.projector-mode {
+            background: #0f172a;
+        }
+        body.projector-mode .top-header,
+        body.projector-mode .school-banner .action-group,
+        body.projector-mode .subview-bar {
+            display: none !important;
+        }
+        body.projector-mode .main-wrap {
+            max-width: 100%;
+            padding: 16px 24px;
+        }
+        body.projector-mode .school-banner {
+            background: #1e293b;
+            border-color: #334155;
+            color: #ffffff;
+        }
+        body.projector-mode .school-banner-title {
+            color: #ffffff;
+            font-size: 25px;
+        }
+        body.projector-mode .school-banner-meta {
+            color: #cbd5e1;
+            font-size: 16px;
+        }
+        .projector-exit-btn {
+            display: none;
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+        body.projector-mode .projector-exit-btn {
+            display: inline-flex;
+        }
+        body.projector-mode .booth-teacher { font-size: 18px; }
+        body.projector-mode .booth-room-badge { font-size: 14px; }
+        body.projector-mode .booth-st-name { font-size: 17.5px; }
+        body.projector-mode .booth-st-class { font-size: 14.5px; }
+
+        .toast {
+            position: fixed;
+            top: 110px;
+            right: 20px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+            z-index: 1000;
+        }
+        .toast.show { opacity: 1; }
+
+        @media print {
+            body { background: #ffffff !important; }
+            .lock-overlay, .top-header, .subview-bar, .action-group, .projector-exit-btn {
+                display: none !important;
+            }
+            .main-wrap { padding: 0 !important; max-width: 100% !important; }
+            .school-banner { box-shadow: none !important; border: 1.5px solid #334155 !important; margin-bottom: 12px !important; }
+            .booth-card { break-inside: avoid; box-shadow: none !important; border: 1px solid #94a3b8 !important; }
+            .booth-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 8px !important; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="top-header">
+    <div class="header-inner">
+        <div class="header-top-row">
+            <div class="brand-title">
+                <span class="brand-pill">마산내서여자고등학교</span>
+                <h1>2026 찾아가는 고교학점제 박람회 · 호계중학교 1:1 컨설팅 배정표</h1>
+            </div>
+            <div class="sync-controls">
+                <span id="syncStatusBadge" class="sync-badge">
+                    <span class="sync-dot"></span>
+                    <span id="syncStatusText">배정표 동기화 중...</span>
+                </span>
+                <button type="button" class="header-btn" onclick="syncFromGoogleSheet(true)">🔄 최신 배정 새로고침</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main-wrap">
+    <div class="school-banner">
+        <div class="school-banner-left">
+            <span id="bannerDate" class="school-date-chip"></span>
+            <div>
+                <div id="bannerTitle" class="school-banner-title"></div>
+                <div id="bannerMeta" class="school-banner-meta"></div>
+            </div>
+        </div>
+        <div class="action-group">
+            <button type="button" class="btn btn-teal" onclick="toggleProjectorMode()">🖥️ 전자칠판 전체화면 모드</button>
+            <button type="button" class="btn" onclick="window.print()">🖨️ 배정표 인쇄(A4)</button>
+        </div>
+        <button type="button" class="projector-exit-btn" onclick="toggleProjectorMode()">✕ 전자칠판 모드 종료 (ESC)</button>
+    </div>
+
+    <div class="subview-bar">
+        <div class="subview-pills">
+            <button type="button" id="pillBooth" class="subview-pill active" onclick="setSubmode('booth')">🏢 상담실(선생님)별 순번 보드</button>
+            <button type="button" id="pillTable" class="subview-pill" onclick="setSubmode('table')">📑 3학년 반·번호순 전체 배정 명렬표</button>
+        </div>
+        <input type="search" id="searchInput" class="search-input" placeholder="🔎 학생 이름, 반(예: 3반), 교실명, 선생님 검색..." oninput="handleSearch(this.value)">
+    </div>
+
+    <div id="viewContainer"></div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const SHEET_ID = "1cRQGyUKBixzujl5vy8dAsOYt4-xU6eZWi54wGtkj4Vk";
+const MATCH_GID = "101800155";
+const TARGET_SCHOOL = "호계중";
+
+const SCHOOL_INFO = {"호계중": {"key": "hogye", "fullName": "호계중학교", "date": "11. 23.(월)", "time": "13:30 ~ 16:30", "waitingRoom": "시청각실", "roomSummary": "3층 수업행동 분석실(4팀) · 2층 도서관(4팀)"}};
+
+const ROOM_MAP = {"호계중": {"진대현": "3층 수업행동 분석실", "정헌석": "3층 수업행동 분석실", "이주현": "3층 수업행동 분석실", "조은영": "3층 수업행동 분석실", "심예은": "2층 도서관", "팽윤정": "2층 도서관", "김향숙": "2층 도서관", "강은해": "2층 도서관"}};
+const TEACHERS = [{"name": "진대현", "schools": {"호계중": true}}, {"name": "정헌석", "schools": {"호계중": true}}, {"name": "이주현", "schools": {"호계중": true}}, {"name": "조은영", "schools": {"호계중": true}}, {"name": "심예은", "schools": {"호계중": true}}, {"name": "팽윤정", "schools": {"호계중": true}}, {"name": "김향숙", "schools": {"호계중": true}}, {"name": "강은해", "schools": {"호계중": true}}];
+const INITIAL_STUDENTS = [{"id": "호계중-10-13", "date": "11.23.(월)", "school": "호계중", "teacher": "진대현", "slot": 1, "class": 10, "no": 13, "name": "손채유"}, {"id": "호계중-6-6", "date": "11.23.(월)", "school": "호계중", "teacher": "진대현", "slot": 2, "class": 6, "no": 6, "name": "김수빈"}, {"id": "호계중-1-12", "date": "11.23.(월)", "school": "호계중", "teacher": "진대현", "slot": 3, "class": 1, "no": 12, "name": "박지원"}, {"id": "호계중-8-1", "date": "11.23.(월)", "school": "호계중", "teacher": "진대현", "slot": 4, "class": 8, "no": 1, "name": "곽윤정"}, {"id": "호계중-8-11", "date": "11.23.(월)", "school": "호계중", "teacher": "진대현", "slot": 5, "class": 8, "no": 11, "name": "변영서"}, {"id": "호계중-1-19", "date": "11.23.(월)", "school": "호계중", "teacher": "정헌석", "slot": 1, "class": 1, "no": 19, "name": "이현주"}, {"id": "호계중-1-3", "date": "11.23.(월)", "school": "호계중", "teacher": "정헌석", "slot": 2, "class": 1, "no": 3, "name": "권수민"}, {"id": "호계중-4-1", "date": "11.23.(월)", "school": "호계중", "teacher": "정헌석", "slot": 3, "class": 4, "no": 1, "name": "강규빈"}, {"id": "호계중-3-17", "date": "11.23.(월)", "school": "호계중", "teacher": "정헌석", "slot": 4, "class": 3, "no": 17, "name": "이예빈"}, {"id": "호계중-1-21", "date": "11.23.(월)", "school": "호계중", "teacher": "이주현", "slot": 1, "class": 1, "no": 21, "name": "임서현"}, {"id": "호계중-3-28", "date": "11.23.(월)", "school": "호계중", "teacher": "이주현", "slot": 2, "class": 3, "no": 28, "name": "최서현"}, {"id": "호계중-2-16", "date": "11.23.(월)", "school": "호계중", "teacher": "이주현", "slot": 3, "class": 2, "no": 16, "name": "송현아"}, {"id": "호계중-2-19", "date": "11.23.(월)", "school": "호계중", "teacher": "이주현", "slot": 4, "class": 2, "no": 19, "name": "안서은"}, {"id": "호계중-1-6", "date": "11.23.(월)", "school": "호계중", "teacher": "조은영", "slot": 1, "class": 1, "no": 6, "name": "김단아"}, {"id": "호계중-5-17", "date": "11.23.(월)", "school": "호계중", "teacher": "조은영", "slot": 2, "class": 5, "no": 17, "name": "임세미"}, {"id": "호계중-5-15", "date": "11.23.(월)", "school": "호계중", "teacher": "조은영", "slot": 3, "class": 5, "no": 15, "name": "오정원"}, {"id": "호계중-3-22", "date": "11.23.(월)", "school": "호계중", "teacher": "조은영", "slot": 4, "class": 3, "no": 22, "name": "정지원"}, {"id": "호계중-3-1", "date": "11.23.(월)", "school": "호계중", "teacher": "심예은", "slot": 1, "class": 3, "no": 1, "name": "강수희"}, {"id": "호계중-1-5", "date": "11.23.(월)", "school": "호계중", "teacher": "심예은", "slot": 2, "class": 1, "no": 5, "name": "김나연"}, {"id": "호계중-6-7", "date": "11.23.(월)", "school": "호계중", "teacher": "심예은", "slot": 3, "class": 6, "no": 7, "name": "김아현"}, {"id": "호계중-5-22", "date": "11.23.(월)", "school": "호계중", "teacher": "심예은", "slot": 4, "class": 5, "no": 22, "name": "정은서"}, {"id": "호계중-1-18", "date": "11.23.(월)", "school": "호계중", "teacher": "팽윤정", "slot": 1, "class": 1, "no": 18, "name": "이채원"}, {"id": "호계중-6-14", "date": "11.23.(월)", "school": "호계중", "teacher": "팽윤정", "slot": 2, "class": 6, "no": 14, "name": "박시연"}, {"id": "호계중-1-26", "date": "11.23.(월)", "school": "호계중", "teacher": "팽윤정", "slot": 3, "class": 1, "no": 26, "name": "천윤서"}, {"id": "호계중-8-7", "date": "11.23.(월)", "school": "호계중", "teacher": "팽윤정", "slot": 4, "class": 8, "no": 7, "name": "박나리"}, {"id": "호계중-6-10", "date": "11.23.(월)", "school": "호계중", "teacher": "김향숙", "slot": 1, "class": 6, "no": 10, "name": "김하정"}, {"id": "호계중-9-23", "date": "11.23.(월)", "school": "호계중", "teacher": "김향숙", "slot": 2, "class": 9, "no": 23, "name": "정혜원"}, {"id": "호계중-2-4", "date": "11.23.(월)", "school": "호계중", "teacher": "김향숙", "slot": 3, "class": 2, "no": 4, "name": "김민서"}, {"id": "호계중-8-14", "date": "11.23.(월)", "school": "호계중", "teacher": "김향숙", "slot": 4, "class": 8, "no": 14, "name": "안지민"}, {"id": "호계중-6-18", "date": "11.23.(월)", "school": "호계중", "teacher": "강은해", "slot": 1, "class": 6, "no": 18, "name": "이승빈"}, {"id": "호계중-5-14", "date": "11.23.(월)", "school": "호계중", "teacher": "강은해", "slot": 2, "class": 5, "no": 14, "name": "양서연"}, {"id": "호계중-2-11", "date": "11.23.(월)", "school": "호계중", "teacher": "강은해", "slot": 3, "class": 2, "no": 11, "name": "나윤지"}, {"id": "호계중-2-3", "date": "11.23.(월)", "school": "호계중", "teacher": "강은해", "slot": 4, "class": 2, "no": 3, "name": "김나예"}];
+
+let studentsData = JSON.parse(JSON.stringify(INITIAL_STUDENTS));
+let currentSchool = TARGET_SCHOOL;
+let submode = "booth";
+let searchQuery = "";
+
+function getRoomName(school, teacher) {
+    return (ROOM_MAP[school] && ROOM_MAP[school][teacher]) || "상담실";
+}
+
+function syncFromGoogleSheet(manualNotify = false) {
+    const cbName = "__gvizWaitCb_" + Date.now();
+    const script = document.createElement("script");
+    const timer = setTimeout(() => {
+        cleanup();
+        setSyncStatus("내장 배정표 표시 중", false);
+    }, 8000);
+
+    function cleanup() {
+        clearTimeout(timer);
+        delete window[cbName];
+        if (script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    window[cbName] = function(resp) {
+        cleanup();
+        try {
+            if (!resp || resp.status !== "ok" || !resp.table || !resp.table.rows) throw new Error("Invalid");
+            const parsed = [];
+            for (const rowObj of resp.table.rows) {
+                const c = rowObj.c || [];
+                const val = idx => (c[idx] && c[idx].v !== null && c[idx].v !== undefined) ? c[idx].v : "";
+                const dateStr = String(val(0)).trim();
+                const school = String(val(1)).trim();
+                const teacher = String(val(2)).trim();
+                const slot = Math.round(Number(val(3)) || 1);
+                const sClass = Math.round(Number(val(4)) || 1);
+                const sNo = Math.round(Number(val(5)) || 1);
+                const name = String(val(6)).trim();
+                const id = String(val(11)).trim() || `${school}-${sClass}-${sNo}`;
+                if (school === TARGET_SCHOOL && name) {
+                    parsed.push({ id, date: dateStr, school, teacher, slot, class: sClass, no: sNo, name });
+                }
+            }
+            if (parsed.length > 0) {
+                studentsData = parsed;
+                renderAll();
+                setSyncStatus("실시간 최신 배정 연동됨", true);
+                if (manualNotify) showToast("✅ 최신 배정표를 불러왔습니다.");
+            }
+        } catch (err) {
+            setSyncStatus("기본 배정표 표시 중", false);
+        }
+    };
+    script.onerror = function() {
+        cleanup();
+        setSyncStatus("오프라인 배정표 표시 중", false);
+    };
+    script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=responseHandler:${cbName}&gid=${MATCH_GID}&_ts=${Date.now()}`;
+    document.body.appendChild(script);
+}
+
+function setSyncStatus(msg, ok) {
+    document.getElementById("syncStatusText").textContent = msg;
+    document.getElementById("syncStatusBadge").style.background = ok ? "rgba(16, 185, 129, 0.22)" : "rgba(245, 158, 11, 0.25)";
+}
+
+function escapeHtml(str) {
+    return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function showToast(msg) {
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+}
+
+function setSubmode(m) {
+    submode = m;
+    document.getElementById("pillBooth").classList.toggle("active", m === "booth");
+    document.getElementById("pillTable").classList.toggle("active", m === "table");
+    renderContent();
+}
+
+function handleSearch(val) {
+    searchQuery = val;
+    renderContent();
+}
+
+function toggleProjectorMode() {
+    submode = "booth";
+    document.getElementById("pillBooth").classList.add("active");
+    document.getElementById("pillTable").classList.remove("active");
+    document.body.classList.toggle("projector-mode");
+    renderContent();
+}
+
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && document.body.classList.contains("projector-mode")) {
+        document.body.classList.remove("projector-mode");
+    }
+});
+
+function getSchoolTeachers() {
+    return TEACHERS;
+}
+
+function getSchoolStudents() {
+    const tOrder = {};
+    TEACHERS.forEach((t, i) => { tOrder[t.name] = i; });
+    return studentsData
+        .filter(s => s.school === TARGET_SCHOOL)
+        .sort((a, b) => (tOrder[a.teacher] ?? 99) - (tOrder[b.teacher] ?? 99) || a.slot - b.slot);
+}
+
+function matchesSearch(s, roomName) {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return false;
+    return (
+        s.name.toLowerCase().includes(q) ||
+        s.teacher.toLowerCase().includes(q) ||
+        roomName.toLowerCase().includes(q) ||
+        `${s.class}반`.includes(q) ||
+        `3-${s.class}`.includes(q)
+    );
+}
+
+function renderAll() {
+    const info = SCHOOL_INFO[TARGET_SCHOOL];
+    const teachers = getSchoolTeachers();
+    const students = getSchoolStudents();
+
+    document.getElementById("bannerDate").textContent = `📅 ${info.date} ${info.time}`;
+    document.getElementById("bannerTitle").textContent = `${info.fullName} 1:1 컨설팅 순번 및 상담실 배정표`;
+    document.getElementById("bannerMeta").textContent = `단체특강·대기실: ${info.waitingRoom} · 상담장소: ${info.roomSummary} · 참가 학생: ${students.length}명`;
+
+    renderContent();
+}
+
+function renderContent() {
+    const container = document.getElementById("viewContainer");
+    const teachers = getSchoolTeachers();
+    const schoolStudents = getSchoolStudents();
+    const q = searchQuery.trim();
+
+    if (submode === "booth") {
+        container.innerHTML = `<div class="booth-grid">
+            ${teachers.map(t => {
+                const roomName = getRoomName(TARGET_SCHOOL, t.name);
+                const list = schoolStudents.filter(s => s.teacher === t.name);
+                return `
+                <div class="booth-card">
+                    <div class="booth-head">
+                        <div>
+                            <div class="booth-teacher">${escapeHtml(t.name)} 선생님</div>
+                            <div style="font-size:12px; opacity:0.85;">배정 인원 ${list.length}명</div>
+                        </div>
+                        <span class="booth-room-badge">📍 ${escapeHtml(roomName)}</span>
+                    </div>
+                    <div class="booth-list">
+                        ${list.map(s => {
+                            const hit = q && matchesSearch(s, roomName);
+                            return `
+                            <div class="booth-slot-item ${hit ? 'highlight' : ''}">
+                                <span class="booth-slot-no">${s.slot}순번</span>
+                                <div class="booth-st-info">
+                                    <span class="booth-st-name">${escapeHtml(s.name)}</span>
+                                    <span class="booth-st-class">3학년 ${s.class}반 ${s.no}번</span>
+                                </div>
+                            </div>`;
+                        }).join("")}
+                    </div>
+                </div>`;
+            }).join("")}
+        </div>`;
+    } else {
+        const sorted = schoolStudents.slice().sort((a, b) => a.class - b.class || a.no - b.no);
+        const filtered = q
+            ? sorted.filter(s => matchesSearch(s, getRoomName(TARGET_SCHOOL, s.teacher)))
+            : sorted;
+
+        container.innerHTML = `
+        <div class="table-card">
+            <table class="roster-table">
+                <thead>
+                    <tr>
+                        <th>학년</th>
+                        <th>반</th>
+                        <th>번호</th>
+                        <th>학생 성명</th>
+                        <th>배정 상담실(교실)</th>
+                        <th>담당 컨설팅 교사</th>
+                        <th>상담 순번</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${filtered.map(s => {
+                        const roomName = getRoomName(TARGET_SCHOOL, s.teacher);
+                        return `
+                        <tr>
+                            <td>3학년</td>
+                            <td>${s.class}반</td>
+                            <td>${s.no}번</td>
+                            <td><strong>${escapeHtml(s.name)}</strong></td>
+                            <td><span class="room-tag">📍 ${escapeHtml(roomName)}</span></td>
+                            <td><strong style="color:var(--navy);">${escapeHtml(s.teacher)} 선생님</strong></td>
+                            <td><span class="booth-slot-no">${s.slot}순번</span></td>
+                        </tr>`;
+                    }).join("")}
+                </tbody>
+            </table>
+        </div>`;
+    }
+}
+
+renderAll();
+syncFromGoogleSheet(false);
+</script>
+</body>
+</html>
